@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrganizaMed.Dominio.Compartilhado;
+using OrganizaMed.Infraestrutura.Orm.ModuloMedico;
 
 namespace OrganizaMed.Infraestrutura.Orm.Compartilhado;
 
-public class OrganizaMedDbContext(DbContextOptions option) : DbContext, IContextoPersistencia
+public class OrganizaMedDbContext(DbContextOptions options) : DbContext(options), IContextoPersistencia
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfiguration(new MapeadorMedicoEmOrm());
+
         base.OnModelCreating(modelBuilder);
     }
 
