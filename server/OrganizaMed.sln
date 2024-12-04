@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrganizaMed.Testes.Integrac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrganizaMed.Aplicacao", "OrganizaMed.Aplicacao\OrganizaMed.Aplicacao.csproj", "{72B860EA-479E-4F21-AB08-883F0A361B68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrganizaMed.WebApi", "OrganizaMed.WebApi\OrganizaMed.WebApi.csproj", "{69A3A305-F361-4706-A86F-FA2DE21799E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{72B860EA-479E-4F21-AB08-883F0A361B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72B860EA-479E-4F21-AB08-883F0A361B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72B860EA-479E-4F21-AB08-883F0A361B68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69A3A305-F361-4706-A86F-FA2DE21799E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69A3A305-F361-4706-A86F-FA2DE21799E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69A3A305-F361-4706-A86F-FA2DE21799E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69A3A305-F361-4706-A86F-FA2DE21799E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,5 +75,6 @@ Global
 		{1074373C-BD6B-43D9-ABB6-1447B8584BAF} = {3585B958-3207-4679-8B18-FD1589121D19}
 		{1613407E-E2F3-4778-91E4-1C6601729F0B} = {80E72500-3948-441A-AE69-EC5BD8126219}
 		{72B860EA-479E-4F21-AB08-883F0A361B68} = {6DD6AEE9-14A3-4392-A1A0-09D2AB94DAB5}
+		{69A3A305-F361-4706-A86F-FA2DE21799E2} = {51BA7E50-FDFA-477D-B1F2-082EC7645286}
 	EndGlobalSection
 EndGlobal
