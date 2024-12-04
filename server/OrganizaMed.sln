@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testes de Integração", "T
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testes de Unidade", "Testes de Unidade", "{3585B958-3207-4679-8B18-FD1589121D19}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Distruibuição", "1. Distruibuição", "{51BA7E50-FDFA-477D-B1F2-082EC7645286}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Distribuição", "1. Distribuição", "{51BA7E50-FDFA-477D-B1F2-082EC7645286}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrganizaMed.Testes.Unidade", "OrganizaMed.Testes.Unidade\OrganizaMed.Testes.Unidade.csproj", "{1074373C-BD6B-43D9-ABB6-1447B8584BAF}"
 EndProject

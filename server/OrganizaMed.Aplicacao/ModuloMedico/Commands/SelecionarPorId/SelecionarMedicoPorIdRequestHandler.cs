@@ -13,11 +13,14 @@ public class SelecionarMedicoPorIdRequestHandler(
     {
         var medicoSelecionado = await repositorioMedico.SelecionarPorIdAsync(request.Id);
 
-        if (medicoSelecionado == null)
+        if (medicoSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
-
-        var resposta = new SelecionarMedicoPorIdResponse(medicoSelecionado.Id, medicoSelecionado.Nome, medicoSelecionado.Crm);
+        var resposta = new SelecionarMedicoPorIdResponse(
+            medicoSelecionado.Id,
+            medicoSelecionado.Nome,
+            medicoSelecionado.Crm
+        );
 
         return Result.Ok(resposta);
     }

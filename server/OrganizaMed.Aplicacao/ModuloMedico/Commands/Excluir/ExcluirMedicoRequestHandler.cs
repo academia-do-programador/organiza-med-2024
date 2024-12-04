@@ -15,7 +15,7 @@ public class ExcluirMedicoRequestHandler(
     {
         var medicoSelecionado = await repositorioMedico.SelecionarPorIdAsync(request.Id);
 
-        if (medicoSelecionado == null)
+        if (medicoSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
         try
@@ -27,7 +27,7 @@ public class ExcluirMedicoRequestHandler(
         catch (Exception ex)
         {
             await contexto.RollbackAsync();
-            
+
             return Result.Fail(ErrorResults.InternalServerError(ex));
         }
 
