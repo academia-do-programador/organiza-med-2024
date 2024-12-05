@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrganizaMed.Infraestrutura.Orm.Compartilhado;
 
@@ -11,9 +12,11 @@ using OrganizaMed.Infraestrutura.Orm.Compartilhado;
 namespace OrganizaMed.Infraestrutura.Orm.Migrations
 {
     [DbContext(typeof(OrganizaMedDbContext))]
-    partial class OrganizaMedDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241204174338_AddAtividadeMedica")]
+    partial class AddAtividadeMedica
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

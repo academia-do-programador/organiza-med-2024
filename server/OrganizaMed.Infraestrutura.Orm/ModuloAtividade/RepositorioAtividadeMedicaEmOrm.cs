@@ -1,0 +1,52 @@
+﻿using Microsoft.EntityFrameworkCore;
+using OrganizaMed.Dominio.Compartilhado;
+using OrganizaMed.Dominio.ModuloAtividade;
+using OrganizaMed.Infraestrutura.Orm.Compartilhado;
+
+namespace OrganizaMed.Infraestrutura.Orm.ModuloAtividade;
+
+public class RepositorioAtividadeMedicaEmOrm(IContextoPersistencia context)
+    : RepositorioBase<AtividadeMedica>(context), IRepositorioAtividadeMedica
+{
+    public override async Task<List<AtividadeMedica>> SelecionarTodosAsync()
+    {
+        return await registros
+            .Include(a => a.Medicos)
+            .ToListAsync();
+    }
+
+    public async Task<List<Consulta>> SelecionarConsultasAsync()
+    {
+        return await registros.OfType<Consulta>()
+            .Include(c => c.Medicos)
+            .ToListAsync();
+    }
+
+    public async Task<List<Cirurgia>> SelecionarCirurgiasAsync()
+    {
+        return await registros.OfType<Cirurgia>()
+            .Include(c => c.Medicos)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<AtividadeMedica>> SelecionarPorMedicosEPeriodo(
+        IEnumerable<Guid> medicoIds,
+        DateTime inicio,
+        DateTime termino
+    )
+    {
+        return await registros
+            .Where(a => a.Medicos.Any(m => medicoIds.Contains(m.Id)) &&
+                        a.Inicio < termino &&
+                        (a.Termino ?? DateTime.MaxValue) > inicio)
+            .ToListAsync();
+    }
+
+    public override async Task<AtividadeMedica?> SelecionarPorIdAsync(Guid id)
+    {
+        return await registros
+            .Include(a => a.Medicos)
+            .ThenInclude(m => m.Atividades)
+            .FirstOrDefaultAsync(a => a.Id == id);
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrganizaMed.Dominio.Compartilhado;
+using OrganizaMed.Infraestrutura.Orm.ModuloAtividade;
 using OrganizaMed.Infraestrutura.Orm.ModuloMedico;
 
 namespace OrganizaMed.Infraestrutura.Orm.Compartilhado;
@@ -9,6 +10,7 @@ public class OrganizaMedDbContext(DbContextOptions options) : DbContext(options)
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new MapeadorMedicoEmOrm());
+        modelBuilder.ApplyConfiguration(new MapeadorAtividadeMedicaEmOrm());
 
         base.OnModelCreating(modelBuilder);
     }
