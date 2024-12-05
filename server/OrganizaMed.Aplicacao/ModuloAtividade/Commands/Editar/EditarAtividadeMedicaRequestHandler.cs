@@ -22,35 +22,35 @@ public class EditarAtividadeMedicaRequestHandler(
 
         if (atividadeSelecionada is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
-        
+
         atividadeSelecionada.Inicio = request.Inicio;
         atividadeSelecionada.Termino = request.Termino;
 
         if (request.MedicosAdicionados is not null && request.MedicosAdicionados.Count > 0)
         {
             var medicosSelecionados = await repositorioMedico.SelecionarMuitosPorId(request.MedicosAdicionados);
-            
+
             if (medicosSelecionados.Count == 0)
                 return Result.Fail(AtividadeMedicaErrorResults.MedicosNaoEncontradosError());
-            
+
             foreach (var medico in medicosSelecionados)
                 atividadeSelecionada.AdicionarMedico(medico);
         }
-        
+
         if (request.MedicosRemovidos is not null && request.MedicosRemovidos.Count > 0)
         {
             var medicosSelecionados = await repositorioMedico.SelecionarMuitosPorId(request.MedicosRemovidos);
-            
+
             if (medicosSelecionados.Count == 0)
                 return Result.Fail(AtividadeMedicaErrorResults.MedicosNaoEncontradosError());
-            
+
             foreach (var medico in medicosSelecionados)
                 atividadeSelecionada.RemoverMedico(medico);
         }
 
-        var resultadoValidacao = 
+        var resultadoValidacao =
             await validador.ValidateAsync(atividadeSelecionada, cancellationToken);
-        
+
         if (!resultadoValidacao.IsValid)
         {
             var erros = resultadoValidacao.Errors
@@ -59,6 +59,7 @@ public class EditarAtividadeMedicaRequestHandler(
 
             return Result.Fail(ErrorResults.BadRequestError(erros));
         }
+
         try
         {
             await repositorioAtividadeMedica.EditarAsync(atividadeSelecionada);
@@ -68,10 +69,10 @@ public class EditarAtividadeMedicaRequestHandler(
         catch (Exception ex)
         {
             await contexto.RollbackAsync();
-            
+
             return Result.Fail(ErrorResults.InternalServerError(ex));
         }
- 
+
         return Result.Ok(new EditarAtividadeMedicaResponse(atividadeSelecionada.Id));
     }
 }

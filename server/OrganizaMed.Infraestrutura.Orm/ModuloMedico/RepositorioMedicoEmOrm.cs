@@ -10,11 +10,11 @@ public class RepositorioMedicoEmOrm(IContextoPersistencia context)
 {
     public override Task<Medico?> SelecionarPorIdAsync(Guid id)
     {
-        return registros.FirstOrDefaultAsync(x => x.Id == id);
+        return registros.Include(m => m.Atividades).FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<List<Medico>> SelecionarMuitosPorId(IEnumerable<Guid> medicosRequisitados)
     {
-        return await registros.Where(m => medicosRequisitados.Contains(m.Id)).ToListAsync();
+        return await registros.Where(m => medicosRequisitados.Contains(m.Id)).Include(m => m.Atividades).ToListAsync();
     }
 }

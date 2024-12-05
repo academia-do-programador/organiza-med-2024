@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using OrganizaMed.Aplicacao.ModuloMedico.Commands.Inserir;
 using OrganizaMed.Dominio.Compartilhado;
+using OrganizaMed.Dominio.ModuloAtividade;
 using OrganizaMed.Dominio.ModuloMedico;
 using OrganizaMed.Infraestrutura.Orm.Compartilhado;
+using OrganizaMed.Infraestrutura.Orm.ModuloAtividade;
 using OrganizaMed.Infraestrutura.Orm.ModuloMedico;
 using OrganizaMed.WebApi.Filters;
 using Serilog;
@@ -39,6 +41,7 @@ public static class DependencyInjection
     public static void ConfigureRepositories(this IServiceCollection services)
     {
         services.AddScoped<IRepositorioMedico, RepositorioMedicoEmOrm>();
+        services.AddScoped<IRepositorioAtividadeMedica, RepositorioAtividadeMedicaEmOrm>();
     }
 
     public static void ConfigureControllersWithFilters(this IServiceCollection services)
