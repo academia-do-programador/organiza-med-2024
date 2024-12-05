@@ -79,7 +79,6 @@ public class AtividadeTests
         Assert.AreEqual(mensagemEsperada, errosValidacao.Errors.First().ErrorMessage);
     }
 
-
     [TestMethod]
     public void Deve_Registrar_Cirurgia_Com_Periodo_Descanso_Valido()
     {

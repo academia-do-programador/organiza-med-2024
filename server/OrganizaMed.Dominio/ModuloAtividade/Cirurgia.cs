@@ -7,15 +7,15 @@ public class Cirurgia : AtividadeMedica
     public override TipoAtividadeMedica TipoAtividade
     {
         get => TipoAtividadeMedica.Cirurgia;
-        set => tipoAtividade = value; 
+        set => tipoAtividade = value;
     }
-    
+
     protected Cirurgia() { }
-    
+
     public Cirurgia(DateTime inicio, DateTime termino) : base(inicio, termino)
     {
     }
-    
+
     public Cirurgia(DateTime inicio, DateTime termino, List<Medico> medicos) : base(inicio, termino)
     {
         foreach (var medico in medicos)
@@ -24,7 +24,6 @@ public class Cirurgia : AtividadeMedica
             medico.RegistrarAtividade(this);
         }
     }
-    
-    // cirurgia
-    public override TimeSpan ObterPeriodoDescanso() => TimeSpan.FromHours(4); 
+
+    public override TimeSpan ObterPeriodoDescanso() => TimeSpan.FromHours(4);
 }

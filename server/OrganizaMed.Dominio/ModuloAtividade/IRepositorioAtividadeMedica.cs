@@ -10,8 +10,8 @@ public interface IRepositorioAtividadeMedica
     Task<List<Consulta>> SelecionarConsultasAsync();
     Task<List<Cirurgia>> SelecionarCirurgiasAsync();
     Task<IEnumerable<AtividadeMedica>> SelecionarPorMedicosEPeriodo(
-        IEnumerable<Guid> medicoIds, 
-        DateTime inicio, 
+        IEnumerable<Guid> medicoIds,
+        DateTime inicio,
         DateTime termino
     );
 }

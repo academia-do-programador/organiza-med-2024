@@ -14,16 +14,16 @@ public abstract class AtividadeMedica : EntidadeBase
     public DateTime Inicio { get; set; }
     public DateTime? Termino { get; set; }
     public List<Medico> Medicos { get; set; }
-    
+
     protected TipoAtividadeMedica tipoAtividade;
     public abstract TipoAtividadeMedica TipoAtividade { get; set; }
-    
+
     protected AtividadeMedica()
     {
         Medicos = [];
     }
 
-    protected AtividadeMedica(DateTime inicio, DateTime termino) : this() 
+    protected AtividadeMedica(DateTime inicio, DateTime termino) : this()
     {
         Inicio = inicio;
         Termino = termino;
@@ -35,17 +35,17 @@ public abstract class AtividadeMedica : EntidadeBase
     {
         if (Medicos.Contains(medicoParaAdicionar))
             return;
-        
+
         Medicos.Add(medicoParaAdicionar);
 
         medicoParaAdicionar.RegistrarAtividade(this);
     }
-    
+
     public void RemoverMedico(Medico medicoParaRemover)
     {
         if (!Medicos.Contains(medicoParaRemover))
             return;
-        
+
         Medicos.Remove(medicoParaRemover);
 
         medicoParaRemover.RemoverAtividade(this);
