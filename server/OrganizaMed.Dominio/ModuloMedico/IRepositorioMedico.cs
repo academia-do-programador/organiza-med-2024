@@ -8,4 +8,6 @@ public interface IRepositorioMedico
     Task<List<Medico>> SelecionarTodosAsync();
     Task<Medico?> SelecionarPorIdAsync(Guid id);
     Task<List<Medico>> SelecionarMuitosPorId(IEnumerable<Guid> requestMedicos);
+    Task<List<RegistroDeHorasTrabalhadas>> SelecionarMedicosMaisAtivosPorPeriodo(
+        DateTime inicioPeriodo, DateTime terminoPeriodo);
 }

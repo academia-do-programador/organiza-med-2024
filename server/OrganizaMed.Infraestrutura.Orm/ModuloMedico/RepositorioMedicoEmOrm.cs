@@ -17,4 +17,20 @@ public class RepositorioMedicoEmOrm(IContextoPersistencia context)
     {
         return await registros.Where(m => medicosRequisitados.Contains(m.Id)).Include(m => m.Atividades).ToListAsync();
     }
+
+    public async Task<List<RegistroDeHorasTrabalhadas>> SelecionarMedicosMaisAtivosPorPeriodo(
+        DateTime inicioPeriodo, DateTime terminoPeriodo)
+    {
+        return await registros.Select(medico => new RegistroDeHorasTrabalhadas
+        {
+            MedicoId = medico.Id,
+            Medico = medico.Nome,
+            TotalDeHorasTrabalhadas = medico.Atividades
+            .Where(a => a.Inicio >= inicioPeriodo && a.Termino <= terminoPeriodo)
+            .Sum(a => EF.Functions.DateDiffHour(a.Inicio, a.Termino))
+            .GetValueOrDefault()
+        }).OrderByDescending(m => m.TotalDeHorasTrabalhadas)
+        .Take(10)
+        .ToListAsync();
+    }
 }

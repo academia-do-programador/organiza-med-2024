@@ -68,4 +68,17 @@ public class MedicoController(IMediator mediator) : ControllerBase
 
         return resultado.ToHttpResponse();
     }
+
+    [HttpGet("top-10")]
+    [ProducesResponseType(typeof(SelecionarMedicosMaisAtivosResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> SelecionarMedicosMaisAtivosPorPeriodo(
+        [FromQuery] DateTime inicioPeriodo, [FromQuery] DateTime terminoPeriodo)
+    {
+        var resultado = await mediator.Send(new SelecionarMedicosMaisAtivosRequest(
+            inicioPeriodo,
+            terminoPeriodo
+        ));
+
+        return resultado.ToHttpResponse();
+    }
 }
