@@ -11,8 +11,7 @@ namespace OrganizaMed.WebApi.Controllers;
 
 [ApiController]
 [Route("api/auth")]
-public class AuthController(
-    IMediator mediator, SignInManager<Usuario> signInManager) : ControllerBase
+public class AuthController(IMediator mediator, SignInManager<Usuario> signInManager) : ControllerBase
 {
     [HttpPost("registrar")]
     public async Task<IActionResult> Registrar(RegistrarUsuarioRequest request)

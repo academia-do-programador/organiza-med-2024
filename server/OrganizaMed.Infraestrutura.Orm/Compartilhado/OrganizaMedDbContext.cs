@@ -14,7 +14,7 @@ public class OrganizaMedDbContext(DbContextOptions options, ITenantProvider? ten
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        if (tenantProvider != null)
+        if (tenantProvider is not null)
         {
             modelBuilder.Entity<Medico>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
             modelBuilder.Entity<AtividadeMedica>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);

@@ -7,7 +7,7 @@ using OrganizaMed.Dominio.ModuloAutenticacao;
 
 namespace OrganizaMed.Aplicacao.ModuloAutenticacao.Commands.Registrar;
 
-public class RegistrarUsuarioHandler(
+public class RegistrarUsuarioRequestHandler(
     UserManager<Usuario> userManager,
     ITokenProvider tokenProvider
 ) : IRequestHandler<RegistrarUsuarioRequest, Result<TokenResponse>>
