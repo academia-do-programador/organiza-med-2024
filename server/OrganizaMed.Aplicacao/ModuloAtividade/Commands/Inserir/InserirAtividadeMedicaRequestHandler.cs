@@ -4,6 +4,7 @@ using MediatR;
 using OrganizaMed.Aplicacao.Compartilhado;
 using OrganizaMed.Dominio.Compartilhado;
 using OrganizaMed.Dominio.ModuloAtividade;
+using OrganizaMed.Dominio.ModuloAutenticacao;
 using OrganizaMed.Dominio.ModuloMedico;
 
 namespace OrganizaMed.Aplicacao.ModuloAtividade.Commands.Inserir;
@@ -12,6 +13,7 @@ public class InserirAtividadeMedicaRequestHandler(
     IRepositorioAtividadeMedica repositorioAtividadeMedica,
     IRepositorioMedico repositorioMedico,
     IContextoPersistencia contexto,
+    ITenantProvider tenantProvider,
     IValidator<AtividadeMedica> validador
 ) : IRequestHandler<InserirAtividadeMedicaRequest, Result<InserirAtividadeMedicaResponse>>
 {
@@ -41,6 +43,8 @@ public class InserirAtividadeMedicaRequestHandler(
                 medicos: medicosSelecionados
             );
         }
+
+        atividade.UsuarioId = tenantProvider.UsuarioId.GetValueOrDefault();
 
         var resultadoValidacao =
             await validador.ValidateAsync(atividade, cancellationToken);

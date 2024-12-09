@@ -1,4 +1,4 @@
-﻿using NoteKeeper.Dominio.ModuloAutenticacao;
+﻿using OrganizaMed.Dominio.ModuloAutenticacao;
 
 namespace OrganizaMed.Testes.Integracao.Compartilhado;
 

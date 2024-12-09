@@ -1,4 +1,4 @@
-﻿namespace NoteKeeper.Dominio.ModuloAutenticacao;
+﻿namespace OrganizaMed.Dominio.ModuloAutenticacao;
 
 public interface ITenantProvider
 {

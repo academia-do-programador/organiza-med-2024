@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace NoteKeeper.Dominio.ModuloAutenticacao;
+namespace OrganizaMed.Dominio.ModuloAutenticacao;
 
 public class Cargo : IdentityRole<Guid>
 {

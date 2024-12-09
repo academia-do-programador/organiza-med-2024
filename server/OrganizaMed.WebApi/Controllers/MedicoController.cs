@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrganizaMed.Aplicacao.ModuloMedico.Commands.Editar;
 using OrganizaMed.Aplicacao.ModuloMedico.Commands.Excluir;
@@ -10,6 +11,7 @@ using OrganizaMed.WebApi.Extensions;
 namespace OrganizaMed.WebApi.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/medicos")]
 public class MedicoController(IMediator mediator) : ControllerBase
 {

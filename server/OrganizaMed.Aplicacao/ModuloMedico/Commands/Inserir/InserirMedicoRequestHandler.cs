@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using OrganizaMed.Aplicacao.Compartilhado;
 using OrganizaMed.Dominio.Compartilhado;
+using OrganizaMed.Dominio.ModuloAutenticacao;
 using OrganizaMed.Dominio.ModuloMedico;
 
 namespace OrganizaMed.Aplicacao.ModuloMedico.Commands.Inserir;
@@ -10,13 +11,17 @@ namespace OrganizaMed.Aplicacao.ModuloMedico.Commands.Inserir;
 public class InserirMedicoRequestHandler(
     IContextoPersistencia contexto,
     IRepositorioMedico repositorioMedico,
+    ITenantProvider tenantProvider,
     IValidator<Medico> validador
 ) : IRequestHandler<InserirMedicoRequest, Result<InserirMedicoResponse>>
 {
     public async Task<Result<InserirMedicoResponse>> Handle(
         InserirMedicoRequest request, CancellationToken cancellationToken)
     {
-        var medico = new Medico(request.Nome, request.Crm);
+        var medico = new Medico(request.Nome, request.Crm)
+        {
+            UsuarioId = tenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         // validações
         var resultadoValidacao = await validador.ValidateAsync(medico);

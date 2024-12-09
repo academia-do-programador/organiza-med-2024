@@ -25,6 +25,10 @@ public class Program
         builder.Services.ConfigureRepositories();
         builder.Services.ConfigureMediatR();
 
+        // Auth [env JWT_GENERATION_KEY, JWT_AUDIENCE_DOMAIN]
+        builder.Services.ConfigureJwtAuthentication(builder.Configuration);
+        builder.Services.ConfigureIdentityProviders();
+
         // Controllers
         builder.Services.ConfigureControllersWithFilters();
 

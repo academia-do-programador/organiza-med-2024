@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using NoteKeeper.Dominio.ModuloAutenticacao;
 using OrganizaMed.Dominio.Compartilhado;
 using OrganizaMed.Dominio.ModuloAtividade;
+using OrganizaMed.Dominio.ModuloAutenticacao;
 using OrganizaMed.Dominio.ModuloMedico;
 using OrganizaMed.Infraestrutura.Orm.ModuloAtividade;
 using OrganizaMed.Infraestrutura.Orm.ModuloMedico;

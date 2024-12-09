@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using NoteKeeper.Dominio.ModuloAutenticacao;
+using OrganizaMed.Dominio.ModuloAutenticacao;
 using OrganizaMed.Infraestrutura.Orm.Compartilhado;
 
 namespace OrganizaMed.Testes.Integracao.Compartilhado;
