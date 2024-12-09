@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NoteKeeper.Dominio.ModuloAutenticacao;
 using OrganizaMed.Dominio.ModuloAtividade;
 using OrganizaMed.Dominio.ModuloMedico;
 using OrganizaMed.Infraestrutura.Orm.ModuloAtividade;
@@ -29,6 +30,13 @@ public class RepositorioAtividadeOrmTests : TesteIntegracaoBase
 
         DbContext.Database.Migrate();
         Debug.WriteLine("Banco de dados criado com sucesso");
+
+        DbContext.Users.Add(new Usuario
+        {
+            Id = TenantProvider.UsuarioId.GetValueOrDefault()
+        });
+
+        DbContext.SaveChanges();
     }
 
     // Consultas
@@ -36,11 +44,17 @@ public class RepositorioAtividadeOrmTests : TesteIntegracaoBase
     public async Task Deve_Inserir_Consulta_Corretamente()
     {
         // Arrange
-        var medico = new Medico("João da Silva", "12345-SP");
+        var medico = new Medico("João da Silva", "12345-SP")
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         await _repositorioMedico.InserirAsync(medico);
 
-        var atividade = new Consulta(DateTime.Today, DateTime.Today.AddHours(1), medico);
+        var atividade = new Consulta(DateTime.Today, DateTime.Today.AddHours(1), medico)
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         // Act
         await _repositorioAtividadeMedica.InserirAsync(atividade);
@@ -57,11 +71,17 @@ public class RepositorioAtividadeOrmTests : TesteIntegracaoBase
     public async Task Deve_Editar_Consulta_Corretamente()
     {
         // Arrange
-        var medico = new Medico("João da Silva", "12345-SP");
+        var medico = new Medico("João da Silva", "12345-SP")
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         await _repositorioMedico.InserirAsync(medico);
 
-        var atividade = new Consulta(DateTime.Today, DateTime.Today.AddHours(1), medico);
+        var atividade = new Consulta(DateTime.Today, DateTime.Today.AddHours(1), medico)
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         await _repositorioAtividadeMedica.InserirAsync(atividade);
 
@@ -85,11 +105,17 @@ public class RepositorioAtividadeOrmTests : TesteIntegracaoBase
     public async Task Deve_Excluir_Consulta_Corretamente()
     {
         // Arrange
-        var medico = new Medico("João da Silva", "12345-SP");
+        var medico = new Medico("João da Silva", "12345-SP")
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         await _repositorioMedico.InserirAsync(medico);
 
-        var atividade = new Consulta(DateTime.Today, DateTime.Today.AddHours(1), medico);
+        var atividade = new Consulta(DateTime.Today, DateTime.Today.AddHours(1), medico)
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         await _repositorioAtividadeMedica.InserirAsync(atividade);
 
@@ -119,11 +145,17 @@ public class RepositorioAtividadeOrmTests : TesteIntegracaoBase
         ];
 
         foreach (var medico in medicos)
+        {
+            medico.UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault();
             await _repositorioMedico.InserirAsync(medico);
+        }
 
         await DbContext.SaveChangesAsync();
 
-        var atividade = new Cirurgia(DateTime.Today, DateTime.Today.AddHours(6), medicos);
+        var atividade = new Cirurgia(DateTime.Today, DateTime.Today.AddHours(6), medicos)
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         // Act
         var id = await _repositorioAtividadeMedica.InserirAsync(atividade);
@@ -148,11 +180,17 @@ public class RepositorioAtividadeOrmTests : TesteIntegracaoBase
         ];
 
         foreach (var medico in medicos)
+        {
+            medico.UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault();
             await _repositorioMedico.InserirAsync(medico);
+        }
 
         await DbContext.SaveChangesAsync();
 
-        var atividade = new Cirurgia(DateTime.Today, DateTime.Today.AddHours(6), medicos);
+        var atividade = new Cirurgia(DateTime.Today, DateTime.Today.AddHours(6), medicos)
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         var id = await _repositorioAtividadeMedica.InserirAsync(atividade);
 
@@ -184,11 +222,17 @@ public class RepositorioAtividadeOrmTests : TesteIntegracaoBase
         ];
 
         foreach (var medico in medicos)
+        {
+            medico.UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault();
             await _repositorioMedico.InserirAsync(medico);
+        }
 
         await DbContext.SaveChangesAsync();
 
-        var atividade = new Cirurgia(DateTime.Today, DateTime.Today.AddHours(6), medicos);
+        var atividade = new Cirurgia(DateTime.Today, DateTime.Today.AddHours(6), medicos)
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         var id = await _repositorioAtividadeMedica.InserirAsync(atividade);
 

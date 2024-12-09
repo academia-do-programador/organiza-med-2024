@@ -29,5 +29,12 @@ public class MapeadorAtividadeMedicaEmOrm : IEntityTypeConfiguration<AtividadeMe
             .HasDiscriminator(x => x.TipoAtividade)
             .HasValue<Consulta>(TipoAtividadeMedica.Consulta)
             .HasValue<Cirurgia>(TipoAtividadeMedica.Cirurgia);
+
+        modelBuilder
+            .HasOne(a => a.Usuario)
+            .WithMany()
+            .HasForeignKey(a => a.UsuarioId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

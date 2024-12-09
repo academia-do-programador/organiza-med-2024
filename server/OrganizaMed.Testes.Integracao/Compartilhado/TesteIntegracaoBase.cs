@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NoteKeeper.Dominio.ModuloAutenticacao;
 using OrganizaMed.Infraestrutura.Orm.Compartilhado;
 
 namespace OrganizaMed.Testes.Integracao.Compartilhado;
@@ -7,6 +8,7 @@ namespace OrganizaMed.Testes.Integracao.Compartilhado;
 public abstract class TesteIntegracaoBase
 {
     protected OrganizaMedDbContext DbContext { get; }
+    protected ITenantProvider TenantProvider { get; }
 
     protected TesteIntegracaoBase()
     {
@@ -18,7 +20,11 @@ public abstract class TesteIntegracaoBase
             .UseSqlServer(config["SQLSERVER_CONNECTION_STRING"])
             .Options;
 
-        DbContext = new OrganizaMedDbContext(options);
+        TenantProvider = new TestTenantProvider()
+        {
+            UsuarioId = Guid.NewGuid()
+        };
 
+        DbContext = new OrganizaMedDbContext(options, TenantProvider);
     }
 }

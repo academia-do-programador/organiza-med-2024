@@ -20,5 +20,12 @@ public class MapeadorMedicoEmOrm : IEntityTypeConfiguration<Medico>
         modelBuilder.Property(b => b.Crm)
             .HasColumnType("char(8)")
             .IsRequired();
+
+        modelBuilder
+            .HasOne(a => a.Usuario)
+            .WithMany()
+            .HasForeignKey(a => a.UsuarioId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NoteKeeper.Dominio.ModuloAutenticacao;
 using OrganizaMed.Dominio.ModuloMedico;
 using OrganizaMed.Infraestrutura.Orm.ModuloMedico;
 using OrganizaMed.Testes.Integracao.Compartilhado;
@@ -25,13 +26,23 @@ public class RepositorioMedicoOrmTests : TesteIntegracaoBase
 
         DbContext.Database.Migrate();
         Debug.WriteLine("Banco de dados criado com sucesso");
+
+        DbContext.Users.Add(new Usuario
+        {
+            Id = TenantProvider.UsuarioId.GetValueOrDefault()
+        });
+
+        DbContext.SaveChanges();
     }
 
     [TestMethod]
     public async Task Deve_Inserir_Medico_Corretamente()
     {
         // Arrange
-        var entidadeOriginal = new Medico("João da Silva", "12345-SP");
+        var entidadeOriginal = new Medico("João da Silva", "12345-SP")
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         // Act
         var id = await _repositorioMedicoOrm.InserirAsync(entidadeOriginal);
@@ -49,7 +60,10 @@ public class RepositorioMedicoOrmTests : TesteIntegracaoBase
     public async Task Deve_Editar_Medico_Corretamente()
     {
         // Arrange
-        var entidadeOriginal = new Medico("João da Silva", "12345-SP");
+        var entidadeOriginal = new Medico("João da Silva", "12345-SP")
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         var id = await _repositorioMedicoOrm.InserirAsync(entidadeOriginal);
 
@@ -74,7 +88,10 @@ public class RepositorioMedicoOrmTests : TesteIntegracaoBase
     public async Task Deve_Excluir_Medico_Corretamente()
     {
         // Arrange
-        var entidadeOriginal = new Medico("João da Silva", "12345-SP");
+        var entidadeOriginal = new Medico("João da Silva", "12345-SP")
+        {
+            UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault()
+        };
 
         var id = await _repositorioMedicoOrm.InserirAsync(entidadeOriginal);
 
@@ -103,7 +120,10 @@ public class RepositorioMedicoOrmTests : TesteIntegracaoBase
         };
 
         foreach (var medico in medicos)
+        {
+            medico.UsuarioId = TenantProvider.UsuarioId.GetValueOrDefault();
             await _repositorioMedicoOrm.InserirAsync(medico);
+        }
 
         await DbContext.SaveChangesAsync();
 
@@ -111,6 +131,7 @@ public class RepositorioMedicoOrmTests : TesteIntegracaoBase
         var entidades = await _repositorioMedicoOrm.SelecionarTodosAsync();
 
         // Assert
-        CollectionAssert.AreEqual(medicos, entidades.ToList());
+        Assert.AreEqual(2, entidades.Count);
+        CollectionAssert.AreEquivalent(medicos, entidades);
     }
 }
