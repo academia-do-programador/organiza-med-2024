@@ -34,7 +34,7 @@ Uma clínica médica é um centro onde atividades, como cirurgias e consultas, s
 
 O funcionamento da aplicação depende que variáveis de ambiente sejam configuradas.
 
-Utilize o sistema de gerenciamento de segredos de usuário do dotnet (dotnet user secrets). [Documentação da Microsoft](https://learn.microsoft.com/pt-br/aspnet/core/security/app-secrets?view=aspnetcore-9.0&tabs=windows) no projeto **OrganizaMed.WebApi**.
+Utilize o sistema de gerenciamento de segredos de usuário do dotnet (dotnet user secrets) no projeto **OrganizaMed.WebApi**. [Saiba mais sobre configuração de ambiente na documentação da Microsoft](https://learn.microsoft.com/pt-br/aspnet/core/security/app-secrets?view=aspnetcore-9.0&tabs=windows).
 
 ```json
 {
