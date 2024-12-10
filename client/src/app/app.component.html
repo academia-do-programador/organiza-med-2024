@@ -1,6 +1,10 @@
+@if (usuarioAutenticado$ | async) {
 <app-shell
   [usuarioAutenticado]="(usuarioAutenticado$ | async)!"
   (logout)="efetuarLogout()"
 >
   <router-outlet></router-outlet>
 </app-shell>
+} @else {
+<router-outlet></router-outlet>
+}
