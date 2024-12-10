@@ -1,0 +1,31 @@
+.btn-menu-atividades {
+  min-width: 220px;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 250px;
+  padding: 0 5px;
+
+  border-radius: 0;
+  border: none;
+}
+
+.sidenav-content {
+  background-color: #282327;
+}
+
+.sidenav .mat-toolbar {
+  color: #ffd7f5;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  color: #ffd7f5;
+}
