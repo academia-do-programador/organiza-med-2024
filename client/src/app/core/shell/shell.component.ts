@@ -33,8 +33,8 @@ import { MatMenuModule } from '@angular/material/menu';
 export class ShellComponent {
   links: LinkNavegacao[] = [
     {
-      titulo: 'Dashboard',
-      icone: 'home',
+      titulo: 'Painel de Controle',
+      icone: 'dashboard',
       rota: '/dashboard',
     },
     {
