@@ -8,6 +8,7 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { provideNotifications } from './core/notificacao/notificacao.provider';
+import { provideAuthentication } from './auth/auth.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
 
+    provideAuthentication(),
     provideNotifications(),
   ],
 };

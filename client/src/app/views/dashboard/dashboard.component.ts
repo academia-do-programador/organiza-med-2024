@@ -3,9 +3,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ItemDashboard } from './models/item-dashboard.model';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgForOf } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UsuarioAutenticadoDto } from '../../auth/models/auth.models';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  @Input() nomeUsuario?: string = '{nomeUsuario}';
+  @Input() usuarioAutenticado: UsuarioAutenticadoDto | undefined;
 
   itens: ItemDashboard[] = [
     {
@@ -46,4 +47,8 @@ export class DashboardComponent {
       icone: 'emergency',
     },
   ];
+
+  constructor(private route: ActivatedRoute) {
+    this.usuarioAutenticado = this.route.snapshot.data['usuario'];
+  }
 }

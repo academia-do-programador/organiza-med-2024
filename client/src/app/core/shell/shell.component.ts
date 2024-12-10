@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -11,6 +11,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { LinkNavegacao } from './models/link-navegacao.model';
 import { MatMenuModule } from '@angular/material/menu';
+import { UsuarioAutenticadoDto } from '../../auth/models/auth.models';
 
 @Component({
   selector: 'app-shell',
@@ -31,7 +32,23 @@ import { MatMenuModule } from '@angular/material/menu';
   ],
 })
 export class ShellComponent {
+  @Input() usuarioAutenticado: UsuarioAutenticadoDto | undefined;
+  @Output() logout: EventEmitter<void>;
+
   links: LinkNavegacao[] = [
+    {
+      titulo: 'Login',
+      icone: 'login',
+      rota: '/login',
+    },
+    {
+      titulo: 'Registro',
+      icone: 'person_add',
+      rota: '/registro',
+    },
+  ];
+
+  authLinks: LinkNavegacao[] = [
     {
       titulo: 'Painel de Controle',
       icone: 'dashboard',
@@ -70,5 +87,11 @@ export class ShellComponent {
         map((result) => result.matches),
         shareReplay()
       );
+
+    this.logout = new EventEmitter();
+  }
+
+  logoutAcionado() {
+    this.logout.emit();
   }
 }

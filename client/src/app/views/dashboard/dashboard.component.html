@@ -3,8 +3,11 @@
   <hr />
 
   <span>
-    Seja bem-vindo(a), {{ nomeUsuario }}! O painel de controle fornece uma visão
-    geral das funcionalidades do <strong>OrganizaMed</strong>, fique à vontade!
+    Seja bem-vindo(a),
+    {{
+      usuarioAutenticado ? usuarioAutenticado.userName : "{Nome do usuário}"
+    }}! O painel de controle fornece uma visão geral das funcionalidades do
+    <strong>OrganizaMed</strong>, fique à vontade!
   </span>
 
   <div class="row g-3 mt-2">

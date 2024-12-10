@@ -13,9 +13,19 @@
         OrganizaMed
       </span>
     </mat-toolbar>
+
     <mat-nav-list>
+      <ng-container *ngIf="!usuarioAutenticado">
+        <a *ngFor="let link of links" mat-list-item [routerLink]="link.rota">
+          <mat-icon matListItemIcon>{{ link.icone }}</mat-icon>
+          {{ link.titulo }}
+        </a>
+      </ng-container>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="usuarioAutenticado">
       <a
-        *ngFor="let link of links"
+        *ngFor="let link of authLinks"
         mat-list-item
         [routerLink]="link.subLinks ? null : link.rota"
         [matMenuTriggerFor]="link.subLinks ? menuAtividades : null"
@@ -57,6 +67,30 @@
         <mat-icon>emergency</mat-icon>
         OrganizaMed
       </span>
+
+      <mat-nav-list class="auth-nav-list ms-auto" *ngIf="usuarioAutenticado">
+        <a
+          [matMenuTriggerFor]="menu"
+          mat-list-item
+          class="auth-trigger-menu-opcoes text-center"
+        >
+          <mat-icon matListItemIcon class="text-dark"
+            >admin_panel_settings</mat-icon
+          ><span class="text-dark">{{ usuarioAutenticado.userName }}</span>
+        </a>
+
+        <mat-menu #menu class="auth-menu-opcoes ms-2 rounded-4">
+          <button
+            mat-menu-item
+            data-cy="logout"
+            class="auth-menu-item"
+            (click)="logoutAcionado()"
+          >
+            <mat-icon matListItemIcon>logout</mat-icon>
+            Logout
+          </button>
+        </mat-menu>
+      </mat-nav-list>
     </mat-toolbar>
 
     <ng-content></ng-content>
