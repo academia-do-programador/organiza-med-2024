@@ -6,8 +6,13 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { SelecionarAtividadesMedicasResponse } from '../atividades-medicas.models';
+import {
+  SelecionarAtividadesMedicasDto,
+  SelecionarAtividadesMedicasResponse,
+  TipoAtividadeMedica,
+} from '../atividades-medicas.models';
 import { SelecionarMedicosDto } from '../../medicos/medicos.models';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-listagem-atividades-medicas',
@@ -22,19 +27,50 @@ import { SelecionarMedicosDto } from '../../medicos/medicos.models';
     MatIconModule,
     MatTooltipModule,
     MatDividerModule,
+    MatChipsModule,
   ],
   templateUrl: './listagem-atividades-medicas.component.html',
 })
 export class ListagemConsultasComponent implements OnInit {
   dados!: SelecionarAtividadesMedicasResponse;
+  tiposAtividade = Object.values(TipoAtividadeMedica).filter(
+    (v) => !Number.isFinite(v)
+  );
+
+  dadosEmCache!: SelecionarAtividadesMedicasResponse;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.dados = this.route.snapshot.data['dados'];
+
+    this.dadosEmCache = this.dados;
   }
 
   public listarMedicosAtividade(medicos: SelecionarMedicosDto[]): string {
     return medicos.map((m) => m.nome).join(', ');
+  }
+
+  public filtrar(indexTipoAtividade?: number) {
+    const registrosFiltrados = this.obterRegistrosFiltrados(
+      this.dadosEmCache.registros,
+      indexTipoAtividade
+    );
+
+    this.dados = {
+      quantidadadeRegistros: registrosFiltrados.length,
+      registros: registrosFiltrados,
+    };
+  }
+
+  private obterRegistrosFiltrados(
+    registros: SelecionarAtividadesMedicasDto[],
+    indexTipoAtividade?: number
+  ) {
+    if (indexTipoAtividade) {
+      return registros.filter((n) => n.tipoAtividade == indexTipoAtividade);
+    }
+
+    return registros;
   }
 }

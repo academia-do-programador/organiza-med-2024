@@ -16,6 +16,18 @@
 
     <hr />
 
+    <mat-chip-listbox>
+      <mat-chip-option selected (click)="filtrar()"
+        >Todas as notas</mat-chip-option
+      >
+
+      <mat-chip-option
+        *ngFor="let categoria of tiposAtividade; index as i"
+        (click)="filtrar(i)"
+        >{{ categoria }}</mat-chip-option
+      >
+    </mat-chip-listbox>
+
     <div *ngFor="let item of dados.registros" class="col-md-6 col-lg-4">
       <mat-card
         [attr.data-cy-list-item]="item.id"
