@@ -1,31 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, catchError } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
-import {
-  InserirMedicoResponse,
-  InserirMedicoRequest,
-  SelecionarMedicosResponse,
-  EditarMedicoRequest,
-  SelecionarMedicoPorIdResponse,
-  ExcluirMedicoResponse,
-} from './medicos.models';
 import { RespostaHttp } from '../../shared/models/http-response.model';
+import {
+  EditarAtividadeMedicaPartialRequest,
+  EditarAtividadeMedicaResponse,
+  ExcluirAtividadeMedicaResponse,
+  InserirAtividadeMedicaRequest,
+  InserirAtividadeMedicaResponse,
+  SelecionarAtividadeMedicaPorIdResponse,
+  TipoAtividadeMedica,
+} from './atividades-medicas.models';
 import { BaseHttpService } from '../../shared/services/base-http-service';
 
 @Injectable({ providedIn: 'root' })
-export class MedicosService extends BaseHttpService {
-  private readonly url = `${environment.apiUrl}/medicos`;
+export class AtividadesMedicasService extends BaseHttpService {
+  private readonly url = `${environment.apiUrl}/atividades-medicas`;
 
   constructor(http: HttpClient) {
     super(http);
   }
 
   public inserir(
-    dados: InserirMedicoRequest
-  ): Observable<InserirMedicoResponse> {
+    dados: InserirAtividadeMedicaRequest
+  ): Observable<InserirAtividadeMedicaResponse> {
     return this.http
       .post<RespostaHttp>(this.url, dados)
       .pipe(map(this.processarDados), catchError(this.processarFalha));
@@ -33,8 +34,8 @@ export class MedicosService extends BaseHttpService {
 
   public editar(
     id: string,
-    dados: EditarMedicoRequest
-  ): Observable<InserirMedicoResponse> {
+    dados: EditarAtividadeMedicaPartialRequest
+  ): Observable<EditarAtividadeMedicaResponse> {
     const urlCompleto = `${this.url}/${id}`;
 
     return this.http
@@ -42,7 +43,7 @@ export class MedicosService extends BaseHttpService {
       .pipe(map(this.processarDados), catchError(this.processarFalha));
   }
 
-  public excluir(id: string): Observable<ExcluirMedicoResponse> {
+  public excluir(id: string): Observable<ExcluirAtividadeMedicaResponse> {
     const urlCompleto = `${this.url}/${id}`;
 
     return this.http
@@ -50,15 +51,22 @@ export class MedicosService extends BaseHttpService {
       .pipe(map(this.processarDados), catchError(this.processarFalha));
   }
 
-  public selecionarTodos(): Observable<SelecionarMedicosResponse> {
+  public selecionarTodos(
+    tipoAtividade?: TipoAtividadeMedica
+  ): Observable<SelecionarAtividadeMedicaPorIdResponse> {
+    let urlCompleto = this.url;
+
+    if (tipoAtividade)
+      urlCompleto += `?tipoAtividade=${tipoAtividade.valueOf()}`;
+
     return this.http
-      .get<RespostaHttp>(this.url)
+      .get<RespostaHttp>(urlCompleto)
       .pipe(map(this.processarDados), catchError(this.processarFalha));
   }
 
   public selecionarPorId(
     id: string
-  ): Observable<SelecionarMedicoPorIdResponse> {
+  ): Observable<SelecionarAtividadeMedicaPorIdResponse> {
     const urlCompleto = `${this.url}/${id}`;
 
     return this.http
