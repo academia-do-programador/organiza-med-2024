@@ -1,0 +1,70 @@
+<main class="container my-5">
+  <div class="row justify-content-center g-3 mt-2">
+    <div class="col col-md-10 col-lg-7">
+      <h1 class="display-3">Cadastro de Médico</h1>
+
+      <hr />
+
+      <form [formGroup]="form" (submit)="gravar()">
+        <mat-form-field class="w-100 mt-5" appearance="fill">
+          <mat-label>Nome</mat-label>
+          <input
+            matInput
+            data-cy="nome"
+            formControlName="nome"
+            autocomplete="name"
+            placeholder="Ex: João da Silva"
+            [maxLength]="30"
+          />
+          <mat-icon matSuffix color="primary">person</mat-icon>
+          <mat-error class="text-white" *ngIf="nome?.invalid">
+            <span *ngIf="nome?.errors?.['required']"
+              >O nome precisa ser preenchido.</span
+            >
+            <span *ngIf="nome?.errors?.['minlength']"
+              >O nome deve conter ao menos 3 caracteres.</span
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 mt-3" appearance="fill">
+          <mat-label>CRM</mat-label>
+          <input
+            matInput
+            data-cy="crm"
+            formControlName="crm"
+            autocomplete="off"
+            placeholder="Ex: 00000-UF"
+            mask="00000-UU"
+            [dropSpecialCharacters]="false"
+          />
+          <mat-icon matSuffix color="primary">badge</mat-icon>
+          <mat-error class="text-white" *ngIf="crm?.invalid">
+            <span *ngIf="crm?.errors?.['required']"
+              >O CRM precisa ser preenchido.</span
+            >
+            <span *ngIf="crm?.errors?.['pattern']"
+              >O CRM informado precisa seguir o padrão 00000-UF.</span
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <div class="row justify-content-end g-2 gap-2 mt-3">
+          <button type="submit" mat-flat-button class="col-sm-4">
+            <mat-icon matIconPrefix>check</mat-icon>
+            Gravar
+          </button>
+          <a
+            mat-button
+            type="button"
+            class="col-sm-4"
+            routerLink="/medicos/listar"
+          >
+            <mat-icon matIconPrefix>keyboard_return</mat-icon>
+            Voltar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

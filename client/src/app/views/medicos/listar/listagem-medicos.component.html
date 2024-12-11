@@ -1,0 +1,65 @@
+<main class="container my-4">
+  <div class="row g-3 mt-2">
+    <h1 class="fs-2">Listagem de Médicos</h1>
+
+    <section aria-label="Opções" class="row justify-content-start g-1 gap-2">
+      <a
+        mat-flat-button
+        data-cy="novoRegistro"
+        class="col-lg-4 col-xxl-2 fs-6 py-4"
+        [routerLink]="['/medicos', 'cadastrar']"
+      >
+        <mat-icon>add_circle</mat-icon>
+        Cadastrar
+      </a>
+    </section>
+
+    <hr />
+
+    <div *ngFor="let item of dados.registros" class="col-md-6 col-lg-4">
+      <mat-card
+        [attr.data-cy-list-item]="item.id"
+        class="card-listagem card-animado mat-mdc-elevation-specific mat-elevation-z3 h-100"
+      >
+        <mat-card-header>
+          <mat-card-title>{{ item.nome }}</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="d-grid mt-4">
+          <span><strong>CRM:</strong> {{ item.crm }}</span>
+        </mat-card-content>
+
+        <mat-card-footer class="d-flex justify-content-end gap-1 p-3 mt-auto">
+          <a
+            mat-icon-button
+            data-cy="botaoDetalhes"
+            class="botao-detalhes"
+            matTooltip="Visualizar detalhes de {{ item.nome }}"
+            [routerLink]="['/medicos', 'detalhes', item.id]"
+          >
+            <mat-icon>info</mat-icon>
+          </a>
+          <a
+            mat-icon-button
+            data-cy="botaoEditar"
+            class="botao-editar"
+            matTooltip="Editar {{ item.nome }}"
+            [routerLink]="['/medicos', 'editar', item.id]"
+          >
+            <mat-icon>edit</mat-icon>
+          </a>
+
+          <a
+            mat-icon-button
+            data-cy="botaoExcluir"
+            class="botao-excluir"
+            matTooltip="Excluir {{ item.nome }}"
+            [routerLink]="['/medicos', 'excluir', item.id]"
+          >
+            <mat-icon>delete</mat-icon>
+          </a>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</main>

@@ -17,6 +17,13 @@ export const routes: Routes = [
   },
 
   {
+    path: 'medicos',
+    loadChildren: () =>
+      import('./views/medicos/medicos.routes').then((r) => r.medicosRoutes),
+    canMatch: [authGuard],
+  },
+
+  {
     path: 'registro',
     loadComponent: () =>
       import('./auth/views/registro/registro.component').then(

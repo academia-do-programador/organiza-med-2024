@@ -1,0 +1,46 @@
+<main class="container my-5">
+  <div class="row justify-content-center g-3 mt-2">
+    <div class="col col-md-10 col-lg-7">
+      <h1 class="display-3">Visualização de Detalhes de Médico</h1>
+
+      <hr />
+
+      <app-detalhes-medico [detalhes]="detalhes"></app-detalhes-medico>
+
+      <p class="mt-4">
+        Deseja realmente excluir o registro? <strong>Atenção:</strong> Não será
+        possível recuperar estes dados posteriormente.
+      </p>
+
+      <div class="row justify-content-end g-2 gap-2 mt-3">
+        <a
+          [routerLink]="['/medicos', 'editar', detalhes.id]"
+          mat-flat-button
+          type="button"
+          class="col-sm-4"
+        >
+          <mat-icon matIconPrefix>edit</mat-icon>
+          Editar
+        </a>
+        <a
+          [routerLink]="['/medicos', 'excluir', detalhes.id]"
+          mat-flat-button
+          type="button"
+          class="col-sm-4"
+        >
+          <mat-icon matIconPrefix>delete</mat-icon>
+          Excluir
+        </a>
+        <a
+          mat-button
+          type="button"
+          class="col-sm-4"
+          [routerLink]="['/medicos', 'listar']"
+        >
+          <mat-icon matIconPrefix>keyboard_return</mat-icon>
+          Voltar
+        </a>
+      </div>
+    </div>
+  </div>
+</main>

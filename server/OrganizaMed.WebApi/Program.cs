@@ -26,8 +26,8 @@ public class Program
         builder.Services.ConfigureMediatR();
 
         // Auth [env JWT_GENERATION_KEY, JWT_AUDIENCE_DOMAIN]
-        builder.Services.ConfigureJwtAuthentication(builder.Configuration);
         builder.Services.ConfigureIdentityProviders();
+        builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 
         // Controllers
         builder.Services.ConfigureControllersWithFilters();
@@ -45,8 +45,8 @@ public class Program
         var migracoesRealizadas = app.AutoMigrateDatabase();
 
         Log.Debug(migracoesRealizadas
-            ? "Migrações de banco de dados realizadas."
-            : "Nenhuma migração de banco de dados aplicadas."
+            ? "Migraï¿½ï¿½es de banco de dados realizadas."
+            : "Nenhuma migraï¿½ï¿½o de banco de dados aplicadas."
         );
 
         app.UseSwagger();
@@ -69,7 +69,7 @@ public class Program
         }
         catch (Exception ex)
         {
-            Log.Fatal("Ocorreu um erro fatal durante a execução da aplicação: {@Excecao}", ex);
+            Log.Fatal("Ocorreu um erro fatal durante a execuï¿½ï¿½o da aplicaï¿½ï¿½o: {@Excecao}", ex);
         }
     }
 }
