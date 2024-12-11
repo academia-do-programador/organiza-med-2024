@@ -38,6 +38,7 @@ export class ListagemConsultasComponent implements OnInit {
   );
 
   dadosEmCache!: SelecionarAtividadesMedicasResponse;
+  filtroEmCache?: number;
 
   constructor(private route: ActivatedRoute) {}
 
@@ -45,6 +46,14 @@ export class ListagemConsultasComponent implements OnInit {
     this.dados = this.route.snapshot.data['dados'];
 
     this.dadosEmCache = this.dados;
+
+    const tipoAtividade = this.route.snapshot.queryParams['tipoAtividade'];
+
+    if (tipoAtividade) {
+      this.filtrar(tipoAtividade);
+
+      this.filtroEmCache = tipoAtividade;
+    }
   }
 
   public listarMedicosAtividade(medicos: SelecionarMedicosDto[]): string {
@@ -67,7 +76,7 @@ export class ListagemConsultasComponent implements OnInit {
     registros: SelecionarAtividadesMedicasDto[],
     indexTipoAtividade?: number
   ) {
-    if (indexTipoAtividade) {
+    if (indexTipoAtividade != undefined) {
       return registros.filter((n) => n.tipoAtividade == indexTipoAtividade);
     }
 

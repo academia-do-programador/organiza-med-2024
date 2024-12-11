@@ -34,6 +34,7 @@
             class="botao-icone"
             matTooltip="Ir para {{ item.titulo }}"
             [routerLink]="item.rota"
+            [queryParams]="item.queryParams"
           >
             <mat-icon>arrow_right</mat-icon>
           </a>

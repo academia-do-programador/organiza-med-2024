@@ -17,14 +17,15 @@
     <hr />
 
     <mat-chip-listbox>
-      <mat-chip-option selected (click)="filtrar()"
+      <mat-chip-option [selected]="!filtroEmCache" (click)="filtrar()"
         >Todas as notas</mat-chip-option
       >
 
       <mat-chip-option
-        *ngFor="let categoria of tiposAtividade; index as i"
+        *ngFor="let tipo of tiposAtividade; index as i"
+        [selected]="filtroEmCache && filtroEmCache == i"
         (click)="filtrar(i)"
-        >{{ categoria }}</mat-chip-option
+        >{{ tipo }}</mat-chip-option
       >
     </mat-chip-listbox>
 

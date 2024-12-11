@@ -36,15 +36,17 @@ export class DashboardComponent {
       titulo: 'Consultas',
       descricao:
         'Gerencie consultas futuras ou veja o histórico de registros passados.',
-      rota: '/atividades-medicas/consultas',
+      rota: '/atividades-medicas',
       icone: 'monitor_heart',
+      queryParams: { tipoAtividade: 0 },
     },
     {
       titulo: 'Cirurgias',
       descricao:
         'Gerencie cirurgias futuras ou veja o histórico de registros passados.',
-      rota: '/atividades-medicas/cirurgias',
+      rota: '/atividades-medicas',
       icone: 'emergency',
+      queryParams: { tipoAtividade: 1 },
     },
   ];
 

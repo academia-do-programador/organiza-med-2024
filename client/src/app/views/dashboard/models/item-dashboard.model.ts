@@ -3,4 +3,5 @@ export interface ItemDashboard {
   descricao: string;
   rota: string;
   icone: string;
+  queryParams?: any;
 }
