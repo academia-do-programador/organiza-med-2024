@@ -8,23 +8,22 @@ export enum TipoAtividadeMedica {
 export interface SelecionarAtividadesMedicasDto {
   id: string;
   inicio: Date;
-  termino: Date;
+  termino?: Date;
   tipoAtividade: TipoAtividadeMedica;
-  medicos: SelecionarMedicosDto;
+  medicos: SelecionarMedicosDto[];
 }
 
 export interface SelecionarAtividadesMedicasResponse {
-  id: string;
-  inicio: Date;
-  termino: Date;
-  tipoAtividade: TipoAtividadeMedica;
-  medicos: SelecionarMedicosDto;
+  quantidadadeRegistros: number;
+  registros: SelecionarAtividadesMedicasDto[];
 }
 
 export interface SelecionarAtividadeMedicaPorIdResponse {
   id: string;
-  nome: string;
-  crm: string;
+  inicio: Date;
+  termino?: Date;
+  tipoAtividade: TipoAtividadeMedica;
+  medicos: SelecionarMedicosDto[];
 }
 
 export interface InserirAtividadeMedicaRequest {

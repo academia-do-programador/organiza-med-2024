@@ -24,6 +24,15 @@ export const routes: Routes = [
   },
 
   {
+    path: 'atividades-medicas',
+    loadChildren: () =>
+      import('./views/atividades-medicas/atividades-medicas.routes').then(
+        (r) => r.atividadesMedicasRoutes
+      ),
+    canMatch: [authGuard],
+  },
+
+  {
     path: 'registro',
     loadComponent: () =>
       import('./auth/views/registro/registro.component').then(

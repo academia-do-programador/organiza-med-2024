@@ -63,18 +63,18 @@ export class ShellComponent {
       titulo: 'Atividades Médicas',
       icone: 'health_and_safety',
       rota: '/atividades-medicas',
-      subLinks: [
-        {
-          titulo: 'Consultas',
-          icone: 'monitor_heart',
-          rota: '/atividades-medicas/consultas',
-        },
-        {
-          titulo: 'Cirurgias',
-          icone: 'emergency',
-          rota: '/atividades-medicas/cirurgias',
-        },
-      ],
+      // subLinks: [
+      //   {
+      //     titulo: 'Consultas',
+      //     icone: 'monitor_heart',
+      //     rota: '/atividades-medicas/consultas',
+      //   },
+      //   {
+      //     titulo: 'Cirurgias',
+      //     icone: 'emergency',
+      //     rota: '/atividades-medicas/cirurgias',
+      //   },
+      // ],
     },
   ];
 
