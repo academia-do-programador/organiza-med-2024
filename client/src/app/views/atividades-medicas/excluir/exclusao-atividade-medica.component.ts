@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+
 import { SelecionarAtividadeMedicaPorIdResponse } from '../atividades-medicas.models';
 import { AtividadesMedicasService } from '../atividades-medicas.service';
 import { NotificacaoService } from '../../../core/notificacao/notificacao.service';
@@ -46,7 +48,7 @@ export class ExclusaoAtividadeMedicaComponent implements OnInit {
   }
 
   private processarSucesso(): void {
-    this.notificacaoService.sucesso('Atividade Médica excluída com sucesso!');
+    this.notificacaoService.sucesso('Atividade médica excluída com sucesso!');
 
     this.router.navigate(['/atividades-medicas', 'listar']);
   }

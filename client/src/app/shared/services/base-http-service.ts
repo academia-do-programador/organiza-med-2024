@@ -16,8 +16,6 @@ export abstract class BaseHttpService {
   }
 
   protected processarFalha(resposta: HttpErrorResponse): Observable<never> {
-    console.log(resposta);
-
     return throwError(() => new Error(resposta.error.erros[0]));
   }
 }

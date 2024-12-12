@@ -33,8 +33,7 @@ public class AtividadeMedicaController(IMediator mediator) : ControllerBase
             id,
             partialRequest.Inicio,
             partialRequest.Termino,
-            partialRequest.MedicosAdicionados,
-            partialRequest.MedicosRemovidos
+            partialRequest.Medicos
         );
 
         var response = await mediator.Send(request);

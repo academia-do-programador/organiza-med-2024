@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { SelecionarAtividadeMedicaPorIdResponse } from '../../atividades-medicas.models';
 import { DatePipe } from '@angular/common';
+
+import { MatCardModule } from '@angular/material/card';
+
+import { SelecionarAtividadeMedicaPorIdResponse } from '../../atividades-medicas.models';
 import { SelecionarMedicosDto } from '../../../medicos/medicos.models';
 
 @Component({

@@ -25,28 +25,7 @@ public class EditarAtividadeMedicaRequestHandler(
 
         atividadeSelecionada.Inicio = request.Inicio;
         atividadeSelecionada.Termino = request.Termino;
-
-        if (request.MedicosAdicionados is not null && request.MedicosAdicionados.Count > 0)
-        {
-            var medicosSelecionados = await repositorioMedico.SelecionarMuitosPorId(request.MedicosAdicionados);
-
-            if (medicosSelecionados.Count == 0)
-                return Result.Fail(AtividadeMedicaErrorResults.MedicosNaoEncontradosError());
-
-            foreach (var medico in medicosSelecionados)
-                atividadeSelecionada.AdicionarMedico(medico);
-        }
-
-        if (request.MedicosRemovidos is not null && request.MedicosRemovidos.Count > 0)
-        {
-            var medicosSelecionados = await repositorioMedico.SelecionarMuitosPorId(request.MedicosRemovidos);
-
-            if (medicosSelecionados.Count == 0)
-                return Result.Fail(AtividadeMedicaErrorResults.MedicosNaoEncontradosError());
-
-            foreach (var medico in medicosSelecionados)
-                atividadeSelecionada.RemoverMedico(medico);
-        }
+        atividadeSelecionada.Medicos = await repositorioMedico.SelecionarMuitosPorId(request.Medicos);
 
         var resultadoValidacao =
             await validador.ValidateAsync(atividadeSelecionada, cancellationToken);

@@ -46,13 +46,10 @@ public class Medico : EntidadeBase
 
             TimeSpan diferencial;
 
-            if (!atividadeRegistrada.Termino.HasValue || !atividade.Termino.HasValue)
-                return false;
-
             if (atividade.Inicio > atividadeRegistrada.Termino)
                 diferencial = atividade.Inicio.Subtract(atividadeRegistrada.Termino.Value);
             else
-                diferencial = atividadeRegistrada.Inicio.Subtract(atividade.Termino.Value);
+                diferencial = atividadeRegistrada.Inicio.Subtract(atividade.Termino!.Value);
 
             if (diferencial <= atividadeRegistrada.ObterPeriodoDescanso())
                 return false;

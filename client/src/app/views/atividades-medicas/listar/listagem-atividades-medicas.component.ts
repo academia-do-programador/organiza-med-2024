@@ -1,18 +1,20 @@
-import { DatePipe, NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { DatePipe, NgForOf } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { MatChipsModule } from '@angular/material/chips';
+
 import {
   SelecionarAtividadesMedicasDto,
   SelecionarAtividadesMedicasResponse,
   TipoAtividadeMedica,
 } from '../atividades-medicas.models';
 import { SelecionarMedicosDto } from '../../medicos/medicos.models';
-import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-listagem-atividades-medicas',

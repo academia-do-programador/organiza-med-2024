@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { DetalhesAtividadeMedicaComponent } from '../shared/detalhes/detalhes-atividade-medica.component';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+
+import { DetalhesAtividadeMedicaComponent } from '../shared/detalhes/detalhes-atividade-medica.component';
 import { SelecionarAtividadeMedicaPorIdResponse } from '../atividades-medicas.models';
 
 @Component({

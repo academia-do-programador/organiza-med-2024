@@ -8,7 +8,7 @@ export enum TipoAtividadeMedica {
 export interface SelecionarAtividadesMedicasDto {
   id: string;
   inicio: Date;
-  termino?: Date;
+  termino: Date;
   tipoAtividade: TipoAtividadeMedica;
   medicos: SelecionarMedicosDto[];
 }
@@ -21,7 +21,7 @@ export interface SelecionarAtividadesMedicasResponse {
 export interface SelecionarAtividadeMedicaPorIdResponse {
   id: string;
   inicio: Date;
-  termino?: Date;
+  termino: Date;
   tipoAtividade: TipoAtividadeMedica;
   medicos: SelecionarMedicosDto[];
 }
@@ -40,8 +40,7 @@ export interface InserirAtividadeMedicaResponse {
 export interface EditarAtividadeMedicaPartialRequest {
   inicio: Date;
   termino: Date;
-  medicosAdicionados?: string[];
-  medicosRemovidos?: string[];
+  medicos: string[];
 }
 
 export interface EditarAtividadeMedicaResponse {

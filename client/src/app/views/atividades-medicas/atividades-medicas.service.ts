@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable } from 'rxjs';
-
 import { environment } from '../../../environments/environment';
+
+import { catchError, map, Observable } from 'rxjs';
 
 import { RespostaHttp } from '../../shared/models/http-response.model';
 import {

@@ -1,32 +1,34 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 import {
-  ReactiveFormsModule,
   FormGroup,
   FormBuilder,
   Validators,
+  ReactiveFormsModule,
 } from '@angular/forms';
-import { RouterLink, Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 
-import { map, Observable, startWith, Subscription } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { MatCardModule } from '@angular/material/card';
 import { parse } from 'date-fns';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 import { AtividadesMedicasService } from '../atividades-medicas.service';
 import { NotificacaoService } from '../../../core/notificacao/notificacao.service';
 import { SelecionarMedicosDto } from '../../medicos/medicos.models';
 import {
-  InserirAtividadeMedicaRequest,
   TipoAtividadeMedica,
+  SelecionarAtividadeMedicaPorIdResponse,
+  EditarAtividadeMedicaPartialRequest,
 } from '../atividades-medicas.models';
 
 @Component({
-  selector: 'app-cadastro-atividade-medica',
+  selector: 'app-edicao-atividade-medica',
   standalone: true,
   imports: [
     NgIf,
@@ -40,16 +42,20 @@ import {
     MatIconModule,
     MatButtonModule,
     MatSelectModule,
+    MatCardModule,
 
     NgxMaskDirective,
   ],
   providers: [provideNgxMask()],
-  templateUrl: './cadastro-atividade-medica.component.html',
+  templateUrl: './edicao-atividade-medica.component.html',
 })
-export class CadastroAtividadeMedicaComponent implements OnInit, OnDestroy {
+export class EdicaoAtividadeMedicaComponent implements OnInit, OnDestroy {
   public form: FormGroup;
 
   public medicos$!: Observable<SelecionarMedicosDto[]>;
+
+  public medicosSelecionados: SelecionarMedicosDto[] = [];
+  public tipoAtividadeSelecionada?: TipoAtividadeMedica;
 
   public opcoesAtividade = Object.values(TipoAtividadeMedica).filter(
     (v) => !Number.isFinite(v)
@@ -67,7 +73,6 @@ export class CadastroAtividadeMedicaComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       inicio: [new Date().toLocaleString('pt-Br'), [Validators.required]],
       termino: [new Date().toLocaleString('pt-Br'), [Validators.required]],
-      tipoAtividade: [0, [Validators.required]],
       medicos: [[], [Validators.required]],
     });
   }
@@ -80,10 +85,6 @@ export class CadastroAtividadeMedicaComponent implements OnInit, OnDestroy {
     return this.form.get('termino');
   }
 
-  get tipoAtividade() {
-    return this.form.get('tipoAtividade');
-  }
-
   get medicos() {
     return this.form.get('medicos');
   }
@@ -93,20 +94,25 @@ export class CadastroAtividadeMedicaComponent implements OnInit, OnDestroy {
       map((data) => data['medicos'].registros)
     );
 
-    this.subscriptions.push(
-      this.tipoAtividade!.valueChanges.pipe(startWith(0)).subscribe((v) => {
-        if (v === TipoAtividadeMedica.Consulta) {
-          this.medicos?.setValidators([
-            Validators.required,
-            Validators.maxLength(1),
-          ]);
-        } else {
-          this.medicos?.setValidators([Validators.required]);
-        }
+    const atividadeSelecionada = this.route.snapshot.data[
+      'dados'
+    ] as SelecionarAtividadeMedicaPorIdResponse;
 
-        this.medicos?.updateValueAndValidity();
-      })
-    );
+    this.form.patchValue({
+      inicio: new Date(atividadeSelecionada.inicio).toLocaleString('pt-Br'),
+      termino: new Date(atividadeSelecionada.termino).toLocaleString('pt-Br'),
+      medicos: atividadeSelecionada.medicos.map(
+        (m: SelecionarMedicosDto) => m.id
+      ),
+    });
+
+    this.tipoAtividadeSelecionada = atividadeSelecionada.tipoAtividade;
+
+    if (this.tipoAtividadeSelecionada === TipoAtividadeMedica.Consulta) {
+      this.medicos?.addValidators(Validators.maxLength(1));
+    } else {
+      this.medicos?.removeValidators(Validators.maxLength(1));
+    }
   }
 
   ngOnDestroy(): void {
@@ -124,11 +130,7 @@ export class CadastroAtividadeMedicaComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const medicosFormatados = Array.isArray(this.medicos?.value)
-      ? [...this.medicos?.value]
-      : [this.medicos?.value];
-
-    const request: InserirAtividadeMedicaRequest = {
+    const request: EditarAtividadeMedicaPartialRequest = {
       ...this.form.value,
       inicio: parse(
         this.inicio?.value,
@@ -140,17 +142,18 @@ export class CadastroAtividadeMedicaComponent implements OnInit, OnDestroy {
         'dd/MM/yyyy, HH:mm:ss',
         new Date().toISOString()
       ),
-      medicos: medicosFormatados,
     };
 
-    this.atividadeMedicasService.inserir(request).subscribe({
+    const id = this.route.snapshot.params['id'];
+
+    this.atividadeMedicasService.editar(id, request).subscribe({
       next: () => this.processarSucesso(),
       error: (erro) => this.processarFalha(erro),
     });
   }
 
   private processarSucesso(): void {
-    this.notificacaoService.sucesso(`Atividade médica cadastrada com sucesso!`);
+    this.notificacaoService.sucesso(`Atividade médica editada com sucesso!`);
 
     this.router.navigate(['/atividades-medicas', 'listar']);
   }
