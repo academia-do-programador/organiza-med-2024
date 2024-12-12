@@ -1,0 +1,108 @@
+<main class="container my-5">
+  <div class="row justify-content-center g-3 mt-2">
+    <div class="col col-md-10 col-lg-7">
+      <h1 class="display-3">Cadastro de Atividade Médica</h1>
+
+      <hr />
+
+      <form [formGroup]="form" (submit)="gravar()">
+        <mat-form-field class="w-100 mt-5" appearance="fill">
+          <mat-label>Início</mat-label>
+          <input
+            matInput
+            data-cy="inicio"
+            formControlName="inicio"
+            autocomplete="off"
+            placeholder="Data e hora de início"
+            mask="00/00/0000, 00:00:00"
+            [dropSpecialCharacters]="false"
+          />
+          <mat-icon matSuffix color="primary">time</mat-icon>
+          <mat-error class="text-white" *ngIf="inicio?.invalid">
+            <span *ngIf="inicio?.errors?.['required']"
+              >O início precisa ser preenchido.</span
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 mt-3" appearance="fill">
+          <mat-label>Término</mat-label>
+          <input
+            matInput
+            data-cy="termino"
+            formControlName="termino"
+            autocomplete="off"
+            placeholder="Data e hora de término (opcional)"
+            mask="00/00/0000, 00:00:00"
+            [dropSpecialCharacters]="false"
+          />
+          <mat-icon matSuffix color="primary">time</mat-icon>
+          <mat-error class="text-white" *ngIf="termino?.invalid">
+            <span *ngIf="termino?.errors?.['required']"
+              >O término precisa ser preenchido.</span
+            >
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 mt-3" appearance="fill">
+          <mat-label>Tipo de Atividade</mat-label>
+          <mat-select
+            data-cy="tipoAtividade"
+            formControlName="tipoAtividade"
+            placeholder="Selecione o tipo de atividade"
+          >
+            <mat-option
+              *ngFor="let opcao of opcoesAtividade; index as i"
+              [value]="i"
+            >
+              {{ opcao }}
+            </mat-option>
+          </mat-select>
+          <mat-error class="text-white" *ngIf="tipoAtividade?.invalid">
+            O tipo de atividade precisa ser selecionado.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 mt-3" appearance="fill">
+          <mat-label>Médico(s)</mat-label>
+
+          @if (tipoAtividade?.value == 0) {
+          <mat-select data-cy="medicos" formControlName="medicos">
+            <mat-option
+              *ngFor="let medico of medicos$ | async"
+              [value]="medico.id"
+            >
+              {{ medico.nome }}
+            </mat-option>
+          </mat-select>
+          } @else {
+          <mat-select data-cy="medicos" formControlName="medicos" multiple>
+            <mat-option
+              *ngFor="let medico of medicos$ | async"
+              [value]="medico.id"
+            >
+              {{ medico.nome }}
+            </mat-option>
+          </mat-select>
+          }
+        </mat-form-field>
+
+        <div class="row justify-content-end g-2 gap-2 mt-3">
+          <button type="submit" mat-flat-button class="col-sm-4">
+            <mat-icon matIconPrefix>check</mat-icon>
+            Gravar
+          </button>
+          <a
+            mat-button
+            type="button"
+            class="col-sm-4"
+            routerLink="/atividades-medicas/listar"
+          >
+            <mat-icon matIconPrefix>keyboard_return</mat-icon>
+            Voltar
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

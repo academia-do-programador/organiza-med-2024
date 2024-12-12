@@ -6,7 +6,7 @@ namespace OrganizaMed.Aplicacao.ModuloAtividade.Commands.Inserir;
 
 public record InserirAtividadeMedicaRequest(
     DateTime Inicio,
-    DateTime Termino,
+    DateTime? Termino,
     TipoAtividadeMedica TipoAtividade,
     IEnumerable<Guid> Medicos
 ) : IRequest<Result<InserirAtividadeMedicaResponse>>;

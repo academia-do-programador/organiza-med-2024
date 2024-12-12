@@ -23,7 +23,7 @@ public abstract class AtividadeMedica : EntidadeBase
         Medicos = [];
     }
 
-    protected AtividadeMedica(DateTime inicio, DateTime termino) : this()
+    protected AtividadeMedica(DateTime inicio, DateTime? termino) : this()
     {
         Inicio = inicio;
         Termino = termino;

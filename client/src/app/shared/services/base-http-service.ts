@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
 
@@ -15,7 +15,9 @@ export abstract class BaseHttpService {
     });
   }
 
-  protected processarFalha(resposta: any): Observable<never> {
-    return throwError(() => new Error(resposta.error));
+  protected processarFalha(resposta: HttpErrorResponse): Observable<never> {
+    console.log(resposta);
+
+    return throwError(() => new Error(resposta.error.erros[0]));
   }
 }
