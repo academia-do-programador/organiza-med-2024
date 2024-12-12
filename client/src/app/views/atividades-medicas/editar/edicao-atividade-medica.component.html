@@ -19,7 +19,7 @@
             mask="00/00/0000, 00:00:00"
             [dropSpecialCharacters]="false"
           />
-          <mat-icon matSuffix color="primary">time</mat-icon>
+          <mat-icon matSuffix color="primary">schedule</mat-icon>
           <mat-error class="text-white" *ngIf="inicio?.invalid">
             <span *ngIf="inicio?.errors?.['required']"
               >O início precisa ser preenchido.</span
@@ -38,7 +38,7 @@
             mask="00/00/0000, 00:00:00"
             [dropSpecialCharacters]="false"
           />
-          <mat-icon matSuffix color="primary">time</mat-icon>
+          <mat-icon matSuffix color="primary">schedule</mat-icon>
           <mat-error class="text-white" *ngIf="termino?.invalid">
             <span *ngIf="termino?.errors?.['required']"
               >O término precisa ser preenchido.</span
@@ -57,6 +57,7 @@
               {{ medico.nome }}
             </mat-option>
           </mat-select>
+          <mat-icon matSuffix color="primary">people_group</mat-icon>
           <mat-error class="text-white" *ngIf="medicos?.invalid">
             <span *ngIf="medicos?.errors?.['required']"
               >Um médico precisa ser selecionado.</span
