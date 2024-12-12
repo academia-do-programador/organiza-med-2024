@@ -1,15 +1,17 @@
 <main class="container my-5">
   <div class="row justify-content-center g-3 mt-2">
     <div class="col col-md-10 col-lg-7">
-      <h1 class="display-3">Visualização de Detalhes de Médico</h1>
+      <h1 class="display-3">Visualização de Detalhes de Atividade Médica</h1>
 
       <hr />
 
-      <app-detalhes-medico [detalhes]="detalhes"></app-detalhes-medico>
+      <app-detalhes-atividade-medica
+        [detalhes]="detalhes"
+      ></app-detalhes-atividade-medica>
 
       <div class="row justify-content-end g-2 gap-2 mt-3">
         <a
-          [routerLink]="['/medicos', 'editar', detalhes.id]"
+          [routerLink]="['/atividades-medicas', 'editar', detalhes.id]"
           mat-flat-button
           type="button"
           class="col-sm-4"
@@ -18,7 +20,7 @@
           Editar
         </a>
         <a
-          [routerLink]="['/medicos', 'excluir', detalhes.id]"
+          [routerLink]="['/atividades-medicas', 'excluir', detalhes.id]"
           mat-flat-button
           type="button"
           class="col-sm-4"
@@ -30,7 +32,7 @@
           mat-button
           type="button"
           class="col-sm-4"
-          [routerLink]="['/medicos', 'listar']"
+          [routerLink]="['/atividades-medicas', 'listar']"
         >
           <mat-icon matIconPrefix>keyboard_return</mat-icon>
           Voltar

@@ -6,6 +6,7 @@ import { ListagemConsultasComponent } from './listar/listagem-atividades-medicas
 import { CadastroAtividadeMedicaComponent } from './cadastrar/cadastro-atividade-medica.component';
 import { MedicosService } from '../medicos/medicos.service';
 import { ExclusaoAtividadeMedicaComponent } from './excluir/exclusao-atividade-medica.component';
+import { VisualizacaoAtividadeMedicaComponent } from './visualizar/visualizacao-atividade-medica.component';
 
 export const atividadesMedicasRoutes: Routes = [
   { path: '', redirectTo: 'listar', pathMatch: 'full' },
@@ -26,6 +27,14 @@ export const atividadesMedicasRoutes: Routes = [
   {
     path: 'excluir/:id',
     component: ExclusaoAtividadeMedicaComponent,
+    resolve: {
+      dados: (route: ActivatedRouteSnapshot) =>
+        inject(AtividadesMedicasService).selecionarPorId(route.params['id']),
+    },
+  },
+  {
+    path: 'detalhes/:id',
+    component: VisualizacaoAtividadeMedicaComponent,
     resolve: {
       dados: (route: ActivatedRouteSnapshot) =>
         inject(AtividadesMedicasService).selecionarPorId(route.params['id']),
