@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {
   AutenticarUsuarioRequest,
   RegistrarUsuarioRequest,
@@ -21,7 +21,7 @@ export class AuthService {
 
     return this.http
       .post<TokenResponse>(urlCompleto, registro)
-      .pipe(map(this.processarDados));
+      .pipe(map(this.processarDados), catchError(this.processarFalha));
   }
 
   public login(loginUsuario: AutenticarUsuarioRequest) {
@@ -45,10 +45,12 @@ export class AuthService {
   private processarDados(resposta: any): TokenResponse {
     if (resposta.sucesso) return resposta.dados;
 
-    throw new Error('Erro ao mapear token do usuário.');
+    throw new Error('Erro ao mapear chave de autenticação.', {
+      cause: resposta.erros,
+    });
   }
 
-  private processarFalha(resposta: any) {
+  protected processarFalha(resposta: HttpErrorResponse): Observable<never> {
     return throwError(() => new Error(resposta.error.erros[0]));
   }
 }
