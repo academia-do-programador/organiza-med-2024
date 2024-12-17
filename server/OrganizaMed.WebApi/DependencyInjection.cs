@@ -5,9 +5,11 @@ using OrganizaMed.Aplicacao.ModuloMedico.Commands.Inserir;
 using OrganizaMed.Dominio.Compartilhado;
 using OrganizaMed.Dominio.ModuloAtividade;
 using OrganizaMed.Dominio.ModuloMedico;
+using OrganizaMed.Dominio.ModuloPaciente;
 using OrganizaMed.Infraestrutura.Orm.Compartilhado;
 using OrganizaMed.Infraestrutura.Orm.ModuloAtividade;
 using OrganizaMed.Infraestrutura.Orm.ModuloMedico;
+using OrganizaMed.Infraestrutura.Orm.ModuloPaciente;
 using OrganizaMed.WebApi.Filters;
 using Serilog;
 
@@ -41,6 +43,7 @@ public static class DependencyInjection
     public static void ConfigureRepositories(this IServiceCollection services)
     {
         services.AddScoped<IRepositorioMedico, RepositorioMedicoEmOrm>();
+        services.AddScoped<IRepositorioPaciente, RepositorioPacienteEmOrm>();
         services.AddScoped<IRepositorioAtividadeMedica, RepositorioAtividadeMedicaEmOrm>();
     }
 
