@@ -1,5 +1,6 @@
 ﻿using OrganizaMed.Dominio.Compartilhado;
 using OrganizaMed.Dominio.ModuloMedico;
+using OrganizaMed.Dominio.ModuloPaciente;
 
 namespace OrganizaMed.Dominio.ModuloAtividade;
 
@@ -11,6 +12,8 @@ public enum TipoAtividadeMedica
 
 public abstract class AtividadeMedica : EntidadeBase
 {
+    public Guid PacienteId { get; set; }
+    public Paciente? Paciente { get; set; }
     public DateTime Inicio { get; set; }
     public DateTime? Termino { get; set; }
     public List<Medico> Medicos { get; set; }

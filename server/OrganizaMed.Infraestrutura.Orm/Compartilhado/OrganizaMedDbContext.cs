@@ -4,8 +4,10 @@ using OrganizaMed.Dominio.Compartilhado;
 using OrganizaMed.Dominio.ModuloAtividade;
 using OrganizaMed.Dominio.ModuloAutenticacao;
 using OrganizaMed.Dominio.ModuloMedico;
+using OrganizaMed.Dominio.ModuloPaciente;
 using OrganizaMed.Infraestrutura.Orm.ModuloAtividade;
 using OrganizaMed.Infraestrutura.Orm.ModuloMedico;
+using OrganizaMed.Infraestrutura.Orm.ModuloPaciente;
 
 namespace OrganizaMed.Infraestrutura.Orm.Compartilhado;
 
@@ -17,10 +19,12 @@ public class OrganizaMedDbContext(DbContextOptions options, ITenantProvider? ten
         if (tenantProvider is not null)
         {
             modelBuilder.Entity<Medico>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
+            modelBuilder.Entity<Paciente>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
             modelBuilder.Entity<AtividadeMedica>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
         }
 
         modelBuilder.ApplyConfiguration(new MapeadorMedicoEmOrm());
+        modelBuilder.ApplyConfiguration(new MapeadorPacienteEmOrm());
         modelBuilder.ApplyConfiguration(new MapeadorAtividadeMedicaEmOrm());
 
         base.OnModelCreating(modelBuilder);

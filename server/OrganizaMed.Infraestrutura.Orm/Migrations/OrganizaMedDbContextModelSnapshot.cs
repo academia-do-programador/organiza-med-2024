@@ -140,7 +140,40 @@ namespace OrganizaMed.Infraestrutura.Orm.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("NoteKeeper.Dominio.ModuloAutenticacao.Cargo", b =>
+            modelBuilder.Entity("OrganizaMed.Dominio.ModuloAtividade.AtividadeMedica", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Inicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PacienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("Termino")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TipoAtividade")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PacienteId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("TBAtividadeMedica", (string)null);
+
+                    b.HasDiscriminator<int>("TipoAtividade");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("OrganizaMed.Dominio.ModuloAutenticacao.Cargo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -168,7 +201,7 @@ namespace OrganizaMed.Infraestrutura.Orm.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("NoteKeeper.Dominio.ModuloAutenticacao.Usuario", b =>
+            modelBuilder.Entity("OrganizaMed.Dominio.ModuloAutenticacao.Usuario", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -234,34 +267,6 @@ namespace OrganizaMed.Infraestrutura.Orm.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("OrganizaMed.Dominio.ModuloAtividade.AtividadeMedica", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Inicio")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("Termino")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TipoAtividade")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("TBAtividadeMedica", (string)null);
-
-                    b.HasDiscriminator<int>("TipoAtividade");
-
-                    b.UseTphMappingStrategy();
-                });
-
             modelBuilder.Entity("OrganizaMed.Dominio.ModuloMedico.Medico", b =>
                 {
                     b.Property<Guid>("Id")
@@ -283,6 +288,37 @@ namespace OrganizaMed.Infraestrutura.Orm.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("TBMedico", (string)null);
+                });
+
+            modelBuilder.Entity("OrganizaMed.Dominio.ModuloPaciente.Paciente", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("char(14)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("varchar(15)");
+
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("TBPaciente", (string)null);
                 });
 
             modelBuilder.Entity("OrganizaMed.Dominio.ModuloAtividade.Cirurgia", b =>
@@ -316,7 +352,7 @@ namespace OrganizaMed.Infraestrutura.Orm.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("NoteKeeper.Dominio.ModuloAutenticacao.Cargo", null)
+                    b.HasOne("OrganizaMed.Dominio.ModuloAutenticacao.Cargo", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -325,7 +361,7 @@ namespace OrganizaMed.Infraestrutura.Orm.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("NoteKeeper.Dominio.ModuloAutenticacao.Usuario", null)
+                    b.HasOne("OrganizaMed.Dominio.ModuloAutenticacao.Usuario", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -334,7 +370,7 @@ namespace OrganizaMed.Infraestrutura.Orm.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("NoteKeeper.Dominio.ModuloAutenticacao.Usuario", null)
+                    b.HasOne("OrganizaMed.Dominio.ModuloAutenticacao.Usuario", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -343,13 +379,13 @@ namespace OrganizaMed.Infraestrutura.Orm.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("NoteKeeper.Dominio.ModuloAutenticacao.Cargo", null)
+                    b.HasOne("OrganizaMed.Dominio.ModuloAutenticacao.Cargo", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NoteKeeper.Dominio.ModuloAutenticacao.Usuario", null)
+                    b.HasOne("OrganizaMed.Dominio.ModuloAutenticacao.Usuario", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -358,7 +394,7 @@ namespace OrganizaMed.Infraestrutura.Orm.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("NoteKeeper.Dominio.ModuloAutenticacao.Usuario", null)
+                    b.HasOne("OrganizaMed.Dominio.ModuloAutenticacao.Usuario", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -367,7 +403,26 @@ namespace OrganizaMed.Infraestrutura.Orm.Migrations
 
             modelBuilder.Entity("OrganizaMed.Dominio.ModuloAtividade.AtividadeMedica", b =>
                 {
-                    b.HasOne("NoteKeeper.Dominio.ModuloAutenticacao.Usuario", "Usuario")
+                    b.HasOne("OrganizaMed.Dominio.ModuloPaciente.Paciente", "Paciente")
+                        .WithMany("Atividades")
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("OrganizaMed.Dominio.ModuloAutenticacao.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Paciente");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("OrganizaMed.Dominio.ModuloMedico.Medico", b =>
+                {
+                    b.HasOne("OrganizaMed.Dominio.ModuloAutenticacao.Usuario", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -376,15 +431,20 @@ namespace OrganizaMed.Infraestrutura.Orm.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("OrganizaMed.Dominio.ModuloMedico.Medico", b =>
+            modelBuilder.Entity("OrganizaMed.Dominio.ModuloPaciente.Paciente", b =>
                 {
-                    b.HasOne("NoteKeeper.Dominio.ModuloAutenticacao.Usuario", "Usuario")
+                    b.HasOne("OrganizaMed.Dominio.ModuloAutenticacao.Usuario", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("OrganizaMed.Dominio.ModuloPaciente.Paciente", b =>
+                {
+                    b.Navigation("Atividades");
                 });
 #pragma warning restore 612, 618
         }
