@@ -10,6 +10,6 @@ public class RepositorioPacienteEmOrm(IContextoPersistencia context)
 {
     public override Task<Paciente?> SelecionarPorIdAsync(Guid id)
     {
-        return registros.Include(p => p.Atividades).FirstOrDefaultAsync(p => p.Id == id);
+        return registros.Include(p => p.Atividades).ThenInclude(a => a.Medicos).FirstOrDefaultAsync(p => p.Id == id);
     }
 }
