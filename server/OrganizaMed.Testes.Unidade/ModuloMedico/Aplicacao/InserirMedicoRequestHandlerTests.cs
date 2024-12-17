@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using Moq;
 using OrganizaMed.Aplicacao.ModuloMedico.Commands.Inserir;
 using OrganizaMed.Dominio.Compartilhado;
+using OrganizaMed.Dominio.ModuloAutenticacao;
 using OrganizaMed.Dominio.ModuloMedico;
 
 namespace OrganizaMed.Testes.Unidade.ModuloMedico.Aplicacao;
@@ -14,6 +15,7 @@ public class InserirMedicoRequestHandlerTests
     private Mock<IContextoPersistencia> _contextoMock;
     private Mock<IRepositorioMedico> _repositorioMedicoMock;
     private Mock<IValidator<Medico>> _validadorMock;
+    private Mock<ITenantProvider> _tenantProviderMock;
 
     private InserirMedicoRequestHandler _handler;
 
@@ -23,10 +25,12 @@ public class InserirMedicoRequestHandlerTests
         _contextoMock = new Mock<IContextoPersistencia>();
         _repositorioMedicoMock = new Mock<IRepositorioMedico>();
         _validadorMock = new Mock<IValidator<Medico>>();
+        _tenantProviderMock = new Mock<ITenantProvider>();
 
         _handler = new InserirMedicoRequestHandler(
             _contextoMock.Object,
             _repositorioMedicoMock.Object,
+            _tenantProviderMock.Object,
             _validadorMock.Object
         );
     }

@@ -44,7 +44,6 @@ public class EditarAtividadeMedicaRequestHandlerTests
             Guid.NewGuid(),
             DateTime.Now,
             DateTime.Now.AddHours(1),
-            new List<Guid> { Guid.NewGuid() },
             new List<Guid> { Guid.NewGuid() }
         );
 
@@ -57,12 +56,8 @@ public class EditarAtividadeMedicaRequestHandlerTests
             .ReturnsAsync(atividade);
 
         _repositorioMedicoMock
-            .Setup(r => r.SelecionarMuitosPorId(request.MedicosAdicionados))
+            .Setup(r => r.SelecionarMuitosPorId(request.Medicos))
             .ReturnsAsync(new List<Medico> { medicoAdicionado });
-
-        _repositorioMedicoMock
-            .Setup(r => r.SelecionarMuitosPorId(request.MedicosRemovidos))
-            .ReturnsAsync(new List<Medico> { medicoRemovido });
 
         _validadorMock
             .Setup(v => v.ValidateAsync(It.IsAny<AtividadeMedica>(), It.IsAny<CancellationToken>()))
@@ -96,7 +91,6 @@ public class EditarAtividadeMedicaRequestHandlerTests
             Guid.NewGuid(),
             DateTime.Now,
             DateTime.Now.AddHours(1),
-            null,
             null
         );
 
@@ -120,7 +114,6 @@ public class EditarAtividadeMedicaRequestHandlerTests
             Guid.NewGuid(),
             DateTime.Now.AddDays(-1),
             DateTime.Now.AddDays(-2),
-            null,
             null
         );
 
@@ -153,7 +146,6 @@ public class EditarAtividadeMedicaRequestHandlerTests
             Guid.NewGuid(),
             DateTime.Now,
             DateTime.Now.AddHours(2),
-            null,
             null
         );
 

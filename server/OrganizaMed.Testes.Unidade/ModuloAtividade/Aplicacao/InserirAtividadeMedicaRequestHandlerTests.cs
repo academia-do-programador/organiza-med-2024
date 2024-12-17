@@ -6,6 +6,7 @@ using OrganizaMed.Aplicacao.ModuloAtividade;
 using OrganizaMed.Aplicacao.ModuloAtividade.Commands.Inserir;
 using OrganizaMed.Dominio.Compartilhado;
 using OrganizaMed.Dominio.ModuloAtividade;
+using OrganizaMed.Dominio.ModuloAutenticacao;
 using OrganizaMed.Dominio.ModuloMedico;
 
 namespace OrganizaMed.Testes.Unidade.ModuloAtividade.Aplicacao;
@@ -18,6 +19,7 @@ public class InserirAtividadeMedicaRequestHandlerTests
     private Mock<IRepositorioMedico> _repositorioMedicoMock;
     private Mock<IContextoPersistencia> _contextoMock;
     private Mock<IValidator<AtividadeMedica>> _validadorMock;
+    private Mock<ITenantProvider> _tenantProviderMock;
 
     private InserirAtividadeMedicaRequestHandler _requestHandler;
 
@@ -33,6 +35,7 @@ public class InserirAtividadeMedicaRequestHandlerTests
             _repositorioAtividadeMedicaMock.Object,
             _repositorioMedicoMock.Object,
             _contextoMock.Object,
+            _tenantProviderMock.Object,
             _validadorMock.Object
         );
     }
