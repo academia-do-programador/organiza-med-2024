@@ -12,6 +12,7 @@ public class RepositorioAtividadeMedicaEmOrm(IContextoPersistencia context)
     {
         return await registros
             .Include(a => a.Medicos)
+            .Include(a => a.Paciente)
             .ToListAsync();
     }
 
@@ -19,6 +20,7 @@ public class RepositorioAtividadeMedicaEmOrm(IContextoPersistencia context)
     {
         return await registros.OfType<Consulta>()
             .Include(c => c.Medicos)
+            .Include(a => a.Paciente)
             .ToListAsync();
     }
 
@@ -26,6 +28,7 @@ public class RepositorioAtividadeMedicaEmOrm(IContextoPersistencia context)
     {
         return await registros.OfType<Cirurgia>()
             .Include(c => c.Medicos)
+            .Include(a => a.Paciente)
             .ToListAsync();
     }
 
@@ -47,6 +50,8 @@ public class RepositorioAtividadeMedicaEmOrm(IContextoPersistencia context)
         return await registros
             .Include(a => a.Medicos)
             .ThenInclude(m => m.Atividades)
+            .Include(a => a.Paciente)
+            .ThenInclude(p => p.Atividades)
             .FirstOrDefaultAsync(a => a.Id == id);
     }
 }

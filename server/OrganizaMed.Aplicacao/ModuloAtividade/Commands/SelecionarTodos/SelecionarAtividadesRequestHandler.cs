@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using MediatR;
+using OrganizaMed.Aplicacao.ModuloAtividade.DTOs;
 using OrganizaMed.Aplicacao.ModuloMedico.Commands.SelecionarTodos;
 using OrganizaMed.Dominio.ModuloAtividade;
 
@@ -32,6 +33,12 @@ public class SelecionarAtividadesRequestHandler(
             QuantidadeRegistros = registrosFiltrados.Count(),
             Registros = registrosFiltrados.Select(a => new SelecionarAtividadesDto(
                 a.Id,
+                new SelecionarPacienteAtividadeDto(
+                    a.PacienteId,
+                    a.Paciente.Nome, 
+                    a.Paciente.Email,
+                    a.Paciente.Telefone
+                ),
                 a.Inicio,
                 a.Termino,
                 a.TipoAtividade,

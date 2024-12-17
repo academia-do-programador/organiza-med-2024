@@ -1,15 +1,6 @@
-using OrganizaMed.Aplicacao.ModuloMedico.Commands.SelecionarTodos;
-using OrganizaMed.Dominio.ModuloAtividade;
+using OrganizaMed.Aplicacao.ModuloAtividade.DTOs;
 
 namespace OrganizaMed.Aplicacao.ModuloAtividade.Commands.SelecionarTodos;
-
-public record SelecionarAtividadesDto(
-    Guid Id, 
-    DateTime Inicio,
-    DateTime? Termino,
-    TipoAtividadeMedica TipoAtividade,
-    IEnumerable<SelecionarMedicosDto> Medicos
-);
 
 public record SelecionarAtividadesMedicasResponse
 {
