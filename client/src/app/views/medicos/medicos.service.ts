@@ -11,6 +11,8 @@ import {
   EditarMedicoRequest,
   SelecionarMedicoPorIdResponse,
   ExcluirMedicoResponse,
+  SelecionarMedicosMaisAtivosResponse,
+  PeriodoMedicosMaisAtivosDto,
 } from './medicos.models';
 import { RespostaHttp } from '../../shared/models/http-response.model';
 import { BaseHttpService } from '../../shared/services/base-http-service';
@@ -53,6 +55,16 @@ export class MedicosService extends BaseHttpService {
   public selecionarTodos(): Observable<SelecionarMedicosResponse> {
     return this.http
       .get<RespostaHttp>(this.url)
+      .pipe(map(this.processarDados), catchError(this.processarFalha));
+  }
+
+  public selecionarMedicosMaisAtivos(
+    dados: PeriodoMedicosMaisAtivosDto
+  ): Observable<SelecionarMedicosMaisAtivosResponse> {
+    const urlCompleto = `${this.url}/top-10?inicioPeriodo=${dados.inicioPeriodo}&terminoPeriodo=${dados.terminoPeriodo}`;
+
+    return this.http
+      .get<RespostaHttp>(urlCompleto)
       .pipe(map(this.processarDados), catchError(this.processarFalha));
   }
 

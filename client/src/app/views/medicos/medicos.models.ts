@@ -1,3 +1,19 @@
+export interface PeriodoMedicosMaisAtivosDto {
+  inicioPeriodo: string;
+  terminoPeriodo: string;
+}
+
+export interface SelecionarRegistroDeHorasTrabalhadasDto {
+  medicoId: string;
+  medico: string;
+  totalDeHorasTrabalhadas: number;
+}
+
+export interface SelecionarMedicosMaisAtivosResponse {
+  quantidadeRegistros: number;
+  registros: SelecionarRegistroDeHorasTrabalhadasDto[];
+}
+
 export interface SelecionarMedicosDto {
   id: string;
   nome: string;

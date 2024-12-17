@@ -12,9 +12,40 @@
         <mat-icon>add_circle</mat-icon>
         Cadastrar
       </a>
+      <a
+        mat-stroked-button
+        (click)="abrirDialog()"
+        data-cy="medicosMaisAtivos"
+        class="col-lg-4 col-xxl-2 fs-6 py-4"
+      >
+        <mat-icon>group_add</mat-icon>
+        Médicos mais ativos
+      </a>
     </section>
 
     <hr />
+
+    <div class="row g-2" *ngIf="medicosMaisAtivos | async as medicosMaisAtivos">
+      <h4>Médicos mais ativos</h4>
+
+      <div
+        *ngFor="let item of medicosMaisAtivos.registros; index as i"
+        class="col-md-4 col-lg-3"
+      >
+        <mat-card>
+          <mat-card-content>
+            <mat-card-subtitle class="d-flex"
+              ># {{ i + 1 }}
+              <span class="ms-auto"
+                >Horas: {{ item.totalDeHorasTrabalhadas }}</span
+              ></mat-card-subtitle
+            >
+            <mat-card-title>{{ item.medico }}</mat-card-title>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <hr class="mt-3" />
+    </div>
 
     <div *ngFor="let item of dados.registros" class="col-md-6 col-lg-4">
       <mat-card
