@@ -6,12 +6,14 @@ using OrganizaMed.Dominio.Compartilhado;
 using OrganizaMed.Dominio.ModuloAtividade;
 using OrganizaMed.Dominio.ModuloAutenticacao;
 using OrganizaMed.Dominio.ModuloMedico;
+using OrganizaMed.Dominio.ModuloPaciente;
 
 namespace OrganizaMed.Aplicacao.ModuloAtividade.Commands.Inserir;
 
 public class InserirAtividadeMedicaRequestHandler(
     IRepositorioAtividadeMedica repositorioAtividadeMedica,
     IRepositorioMedico repositorioMedico,
+    IRepositorioPaciente repositorioPaciente,
     IContextoPersistencia contexto,
     ITenantProvider tenantProvider,
     IValidator<AtividadeMedica> validador
@@ -24,6 +26,11 @@ public class InserirAtividadeMedicaRequestHandler(
 
         if (medicosSelecionados.Count == 0)
             return Result.Fail(AtividadeMedicaErrorResults.MedicosNaoEncontradosError());
+
+        var pacienteSelecionado = await repositorioPaciente.SelecionarPorIdAsync(request.PacienteId);
+
+        if (pacienteSelecionado is null)
+            return Result.Fail(AtividadeMedicaErrorResults.PacienteNaoEncontradoError());
 
         AtividadeMedica atividade;
 
@@ -44,6 +51,7 @@ public class InserirAtividadeMedicaRequestHandler(
             );
         }
 
+        atividade.PacienteId = pacienteSelecionado.Id;
         atividade.UsuarioId = tenantProvider.UsuarioId.GetValueOrDefault();
 
         var resultadoValidacao =

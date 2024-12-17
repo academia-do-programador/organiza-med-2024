@@ -10,6 +10,14 @@ public abstract class AtividadeMedicaErrorResults
             .CausedBy("Não foi possível obter o(s) médico(s) informado(s) na requisição")
             .WithMetadata("ErrorType", "BadRequest");
     }
+    
+    public static Error PacienteNaoEncontradoError()
+    {
+        return new Error("Paciente requisitado não encontrado(s)")
+            .CausedBy("Não foi possível obter o paciente informado na requisição")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
+
 
     public static Error ConflitosDePeriodoError(Guid atividadeId)
     {

@@ -5,6 +5,7 @@ using OrganizaMed.Aplicacao.Compartilhado;
 using OrganizaMed.Dominio.Compartilhado;
 using OrganizaMed.Dominio.ModuloAtividade;
 using OrganizaMed.Dominio.ModuloMedico;
+using OrganizaMed.Dominio.ModuloPaciente;
 
 namespace OrganizaMed.Aplicacao.ModuloAtividade.Commands.Editar;
 
@@ -22,7 +23,7 @@ public class EditarAtividadeMedicaRequestHandler(
 
         if (atividadeSelecionada is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
-
+        
         atividadeSelecionada.Inicio = request.Inicio;
         atividadeSelecionada.Termino = request.Termino;
         atividadeSelecionada.Medicos = await repositorioMedico.SelecionarMuitosPorId(request.Medicos);

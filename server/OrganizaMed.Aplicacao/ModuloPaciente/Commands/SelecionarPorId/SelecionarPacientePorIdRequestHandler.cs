@@ -11,7 +11,8 @@ public class SelecionarPacientePorIdRequestHandler(
     IRepositorioPaciente repositorioPaciente
 ) : IRequestHandler<SelecionarPacientePorIdRequest, Result<SelecionarPacientePorIdResponse>>
 {
-    public async Task<Result<SelecionarPacientePorIdResponse>> Handle(SelecionarPacientePorIdRequest request, CancellationToken cancellationToken)
+    public async Task<Result<SelecionarPacientePorIdResponse>> Handle(
+        SelecionarPacientePorIdRequest request, CancellationToken cancellationToken)
     {
         var pacienteSelecionado = await repositorioPaciente.SelecionarPorIdAsync(request.Id);
 
@@ -24,10 +25,10 @@ public class SelecionarPacientePorIdRequestHandler(
             pacienteSelecionado.Cpf,
             pacienteSelecionado.Email,
             pacienteSelecionado.Telefone,
-            pacienteSelecionado.Atividades.Select(a => new SelecionarAtividadesDto(
+            pacienteSelecionado.Atividades.Select(a => new SelecionarAtividadePacienteDto(
                 a.Id,
                 a.Inicio,
-                a.Termino,
+                a.Termino.GetValueOrDefault(),
                 a.TipoAtividade,
                 a.Medicos.Select(m => new SelecionarMedicosDto(m.Id, m.Nome, m.Crm))
             ))
